@@ -51,7 +51,7 @@ class BottomNavigation extends StatelessWidget {
               BottomNavigationBarItem(
                 label: 'Cart',
                 icon: Icon(
-                    newValue.pageIndex == 2 ? IconlyBold.bag : IconlyLight.bag),
+                    newValue.pageIndex == 2 ? IconlyBold.buy : IconlyLight.buy),
               ),
               BottomNavigationBarItem(
                 label: 'Profile',

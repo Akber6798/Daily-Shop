@@ -16,3 +16,5 @@ Color darkMainTextColor = const Color(0xFFF3F4F8);
 
 //* Common colors
 Color redColor = const Color(0xFFE94560);
+Color greenColor = const Color(0xFF008000);
+Color whiteColor = const Color(0xFFFFFFFF);

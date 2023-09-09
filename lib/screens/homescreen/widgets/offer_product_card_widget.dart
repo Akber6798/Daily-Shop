@@ -1,6 +1,7 @@
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
+import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -38,7 +39,9 @@ class OfferProductCardWidget extends StatelessWidget {
                           fWeight: FontWeight.bold,
                           color: GetColorThemeService(context).textColor),
                     ),
-                   const HeartIconWidget(),
+                    HeartIconWidget(
+                      iconColor: redColor,
+                    ),
                   ],
                 ),
                 Center(
@@ -51,7 +54,7 @@ class OfferProductCardWidget extends StatelessWidget {
                   ),
                 ),
                 const VerticalSpacingWidget(height: 5),
-               const PriceWidget(
+                const PriceWidget(
                   isOnOffer: true,
                   normalPrice: 100,
                   offerPrice: 60,
@@ -72,7 +75,7 @@ class OfferProductCardWidget extends StatelessWidget {
                       ),
                     ),
                     Icon(
-                      IconlyLight.bag,
+                      IconlyLight.buy,
                       color: GetColorThemeService(context).headingTextColor,
                       size: 21.sp,
                     ),

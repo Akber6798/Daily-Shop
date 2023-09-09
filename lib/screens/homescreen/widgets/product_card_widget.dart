@@ -2,6 +2,7 @@ import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/horizontal_spacing_widget.dart';
 import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
+import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -61,7 +62,7 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                         fWeight: FontWeight.w500,
                         color: GetColorThemeService(context).textColor),
                   ),
-                  const HeartIconWidget(),
+                  HeartIconWidget(iconColor: redColor),
                 ],
               ),
               PriceWidget(

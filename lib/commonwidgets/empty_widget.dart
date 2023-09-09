@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class EmptyWidget extends StatelessWidget {
-  const EmptyWidget({super.key});
+  const EmptyWidget(
+      {super.key, required this.emptyAnimation, required this.emptyTitle});
+
+  final String emptyAnimation;
+  final String emptyTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +18,10 @@ class EmptyWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const VerticalSpacingWidget(height: 40),
-        Lottie.asset("assets/animations/empty_products.json"),
+        Lottie.asset(emptyAnimation),
         const VerticalSpacingWidget(height: 50),
         Text(
-          "No Products on Yet!\n Stay tuned",
+          emptyTitle,
           style: AppTextStyle.instance.mainTextStyle(
               fSize: 22,
               fWeight: FontWeight.w600,
