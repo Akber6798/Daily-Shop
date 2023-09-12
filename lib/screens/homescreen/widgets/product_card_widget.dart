@@ -4,6 +4,8 @@ import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/consts/routes.dart';
+import 'package:daily_shop/screens/homescreen/innerscreens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,10 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
       color: Theme.of(context).cardColor,
       child: InkWell(
         onTap: () {
-          print("CLICK PRODUCT CARD");
+          Routes.instance.push(
+            context: context,
+            newScreen: const ProductDetailScreen(),
+          );
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.w),
