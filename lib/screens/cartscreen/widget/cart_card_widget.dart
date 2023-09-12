@@ -1,4 +1,5 @@
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
+import 'package:daily_shop/commonwidgets/kg_controller_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
@@ -19,6 +20,13 @@ class CartCardWidget extends StatefulWidget {
 
 class _CartCardWidgetState extends State<CartCardWidget> {
   final quantityController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    quantityController.text = "1";
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -61,22 +69,25 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                   width: 100.w,
                   child: Row(
                     children: [
+                      //! less
                       Flexible(
                         flex: 2,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Material(
-                            color: redColor,
-                            borderRadius: BorderRadius.circular(10),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(10),
-                              onTap: () {},
-                              child: Icon(
-                                Icons.remove,
-                                color: whiteColor,
-                              ),
-                            ),
-                          ),
+                          child: KGControllerWidget(
+                              color: redColor,
+                              clickedFunction: () {
+                                if (quantityController.text == "1") {
+                                  return;
+                                } else {
+                                  setState(() {
+                                    quantityController.text =
+                                        (int.parse(quantityController.text) - 1)
+                                            .toString();
+                                  });
+                                }
+                              },
+                              icon: Icons.remove),
                         ),
                       ),
                       Flexible(
@@ -86,6 +97,13 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                               vertical: 8.h, horizontal: 4.w),
                           child: TextField(
                             controller: quantityController,
+                            onChanged: (onValue) {
+                              setState(() {
+                                if (onValue.isEmpty) {
+                                  quantityController.text = "0";
+                                }
+                              });
+                            },
                             cursorColor:
                                 GetColorThemeService(context).headingTextColor,
                             keyboardType: TextInputType.number,
@@ -96,22 +114,21 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                           ),
                         ),
                       ),
+                      //! add
                       Flexible(
                         flex: 2,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Material(
-                            color: greenColor,
-                            borderRadius: BorderRadius.circular(10),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(10),
-                              onTap: () {},
-                              child: Icon(
-                                Icons.add,
-                                color: whiteColor,
-                              ),
-                            ),
-                          ),
+                          child: KGControllerWidget(
+                              color: greenColor,
+                              clickedFunction: () {
+                                setState(() {
+                                  quantityController.text =
+                                      (int.parse(quantityController.text) + 1)
+                                          .toString();
+                                });
+                              },
+                              icon: Icons.add),
                         ),
                       )
                     ],

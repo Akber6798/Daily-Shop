@@ -1,11 +1,10 @@
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
-import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CommonButton extends StatelessWidget {
-  const CommonButton({
+class CommonButtonWidget extends StatelessWidget {
+  const CommonButtonWidget({
     super.key,
     required this.height,
     required this.width,
@@ -28,7 +27,7 @@ class CommonButton extends StatelessWidget {
         height: height.h,
         width: width.w,
         decoration: BoxDecoration(
-          color: GetColorThemeService(context).headingTextColor,
+          color: greenColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(

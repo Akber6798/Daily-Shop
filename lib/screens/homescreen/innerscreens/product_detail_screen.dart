@@ -1,6 +1,7 @@
-import 'package:daily_shop/commonwidgets/common_button.dart';
+import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/horizontal_spacing_widget.dart';
+import 'package:daily_shop/commonwidgets/kg_controller_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
@@ -18,6 +19,13 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final quantityController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    quantityController.text = "1";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,22 +102,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
                       ),
                       const Spacer(),
-                      Container(
-                        height: 35.h,
-                        width: 120.w,
-                        decoration: BoxDecoration(
-                          color: GetColorThemeService(context).headingTextColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Free Delivery",
-                            style: AppTextStyle.instance.mainTextStyle(
-                                fSize: 14.sp,
-                                fWeight: FontWeight.w500,
-                                color: whiteColor),
-                          ),
-                        ),
+                      Text(
+                        "Free Delivery",
+                        style: AppTextStyle.instance.mainTextStyle(
+                            fSize: 18.sp,
+                            fWeight: FontWeight.w500,
+                            color:
+                                GetColorThemeService(context).headingTextColor),
                       )
                     ],
                   ),
@@ -122,18 +121,22 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           flex: 2,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Material(
-                              color: redColor,
-                              borderRadius: BorderRadius.circular(10),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(10),
-                                onTap: () {},
-                                child: Icon(
-                                  Icons.remove,
-                                  color: whiteColor,
-                                ),
-                              ),
-                            ),
+                            //! less
+                            child: KGControllerWidget(
+                                color: redColor,
+                                clickedFunction: () {
+                                  if (quantityController.text == "1") {
+                                    return;
+                                  } else {
+                                    setState(() {
+                                      quantityController.text =
+                                          (int.parse(quantityController.text) -
+                                                  1)
+                                              .toString();
+                                    });
+                                  }
+                                },
+                                icon: Icons.remove),
                           ),
                         ),
                         Flexible(
@@ -143,6 +146,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 vertical: 8.h, horizontal: 4.w),
                             child: TextField(
                               controller: quantityController,
+                              onChanged: (onValue) {
+                                setState(() {
+                                  if (onValue.isEmpty) {
+                                    quantityController.text = "1";
+                                  } else {
+                                    return;
+                                  }
+                                });
+                              },
                               cursorColor: GetColorThemeService(context)
                                   .headingTextColor,
                               keyboardType: TextInputType.number,
@@ -158,18 +170,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           flex: 2,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Material(
-                              color: greenColor,
-                              borderRadius: BorderRadius.circular(10),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(10),
-                                onTap: () {},
-                                child: Icon(
-                                  Icons.add,
-                                  color: whiteColor,
-                                ),
-                              ),
-                            ),
+                            //! add
+                            child: KGControllerWidget(
+                                color: greenColor,
+                                clickedFunction: () {
+                                  setState(() {
+                                    quantityController.text =
+                                        (int.parse(quantityController.text) + 1)
+                                            .toString();
+                                  });
+                                },
+                                icon: Icons.add),
                           ),
                         )
                       ],
@@ -216,7 +227,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           const VerticalSpacingWidget(height: 10)
                         ],
                       ),
-                      CommonButton(
+                      CommonButtonWidget(
                           height: 40,
                           width: 100,
                           title: "Add to cart",

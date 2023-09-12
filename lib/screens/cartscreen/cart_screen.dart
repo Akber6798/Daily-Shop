@@ -1,5 +1,6 @@
-import 'package:daily_shop/commonwidgets/common_button.dart';
+import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
+import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/screens/cartscreen/widget/cart_card_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
@@ -25,7 +26,7 @@ class CartScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(IconlyLight.delete),
+            icon: Icon(IconlyLight.delete, color: redColor),
           )
         ],
       ),
@@ -39,7 +40,11 @@ class CartScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                 CommonButton(height: 40, width: 100, title: "Order Now", onPressedFunction: (){}),
+                  CommonButtonWidget(
+                      height: 40,
+                      width: 100,
+                      title: "Order Now",
+                      onPressedFunction: () {}),
                   FittedBox(
                     child: Text(
                       "Total: ₹ 1000",
@@ -70,5 +75,3 @@ class CartScreen extends StatelessWidget {
     );
   }
 }
-
-
