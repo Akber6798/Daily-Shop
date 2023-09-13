@@ -4,6 +4,7 @@ import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/consts/routes.dart';
 import 'package:daily_shop/controllers/theme_controller.dart';
 import 'package:daily_shop/screens/profilescreen/inner_screens/order_screen.dart';
+import 'package:daily_shop/screens/profilescreen/inner_screens/viewed_screen.dart';
 import 'package:daily_shop/screens/profilescreen/inner_screens/wishlist_screen.dart';
 import 'package:daily_shop/screens/profilescreen/widgets/list_tile_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
@@ -85,10 +86,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ListTileWidget(
               title: "Viewed",
               icon: IconlyLight.show,
-              onPressed: () {},
+              onPressed: () {
+                Routes.instance.push(
+                  context: context,
+                  newScreen: const ViewedScreen(),
+                );
+              },
             ),
             ListTileWidget(
-              title: "Forgt Password",
+              title: "Forgot Password",
               icon: IconlyLight.unlock,
               onPressed: () {},
             ),
