@@ -3,6 +3,7 @@ import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/screens/profilescreen/widgets/wishlist_card_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
+import 'package:daily_shop/services/global_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,14 @@ class WishlistScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              GlobalServices.instance.closingDailogue(
+                context,
+                "Delete",
+                "Do you want to delete?",
+                () {},
+              );
+            },
             icon: Icon(IconlyLight.delete, color: redColor),
           )
         ],

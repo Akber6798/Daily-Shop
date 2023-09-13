@@ -3,6 +3,7 @@ import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/consts/routes.dart';
 import 'package:daily_shop/controllers/theme_controller.dart';
+import 'package:daily_shop/screens/profilescreen/inner_screens/order_screen.dart';
 import 'package:daily_shop/screens/profilescreen/inner_screens/wishlist_screen.dart';
 import 'package:daily_shop/screens/profilescreen/widgets/list_tile_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
@@ -64,7 +65,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ListTileWidget(
               title: "Orders",
               icon: IconlyLight.bag,
-              onPressed: () {},
+              onPressed: () {
+                Routes.instance.push(
+                  context: context,
+                  newScreen: const OrderScreen(),
+                );
+              },
             ),
             ListTileWidget(
               title: "Whislist",
