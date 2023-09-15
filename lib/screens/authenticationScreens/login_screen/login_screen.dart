@@ -2,6 +2,8 @@ import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/consts/routes.dart';
+import 'package:daily_shop/screens/authenticationScreens/sign_up_screen/sign_up_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,8 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final FocusNode passwordFocusController = FocusNode();
-  ValueNotifier<bool> obsecurePassword = ValueNotifier(true);
   final formKey = GlobalKey<FormState>();
+  ValueNotifier<bool> obsecurePassword = ValueNotifier(true);
 
   void validationForLogin() {
     final isValid = formKey.currentState!.validate();
@@ -220,7 +222,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 //! sign up
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Routes.instance.push(
+                      context: context,
+                      newScreen: SignUpScreen(),
+                    );
+                  },
                   child: Text(
                     "Sign up",
                     style: AppTextStyle.instance.mainTextStyle(

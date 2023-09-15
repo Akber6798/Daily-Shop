@@ -3,6 +3,7 @@ import 'package:daily_shop/consts/theme_style.dart';
 import 'package:daily_shop/controllers/bottom_navigation_controller.dart';
 import 'package:daily_shop/controllers/theme_controller.dart';
 import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
+import 'package:daily_shop/screens/authenticationScreens/sign_up_screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
