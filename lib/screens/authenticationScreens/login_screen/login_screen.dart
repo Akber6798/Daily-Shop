@@ -3,6 +3,7 @@ import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/consts/routes.dart';
+import 'package:daily_shop/screens/authenticationScreens/forget_password_screen/forget_password_screen.dart';
 import 'package:daily_shop/screens/authenticationScreens/sign_up_screen/sign_up_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:flutter/material.dart';
@@ -174,7 +175,12 @@ class _LoginScreenState extends State<LoginScreen> {
             const VerticalSpacingWidget(height: 5),
             //! forget password
             InkWell(
-              onTap: () {},
+              onTap: () {
+                 Routes.instance.push(
+                      context: context,
+                      newScreen: const ForgetPasswordScreen(),
+                    );
+              },
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Text(
@@ -225,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () {
                     Routes.instance.push(
                       context: context,
-                      newScreen: SignUpScreen(),
+                      newScreen: const SignUpScreen(),
                     );
                   },
                   child: Text(
