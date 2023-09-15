@@ -1,8 +1,8 @@
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/consts/routes.dart';
-import 'package:daily_shop/screens/homescreen/innerscreens/all_products_screen.dart';
-import 'package:daily_shop/screens/homescreen/innerscreens/offer_all_products_screen.dart';
+import 'package:daily_shop/screens/homescreen/inner_screens/all_products_screen.dart';
+import 'package:daily_shop/screens/homescreen/inner_screens/offer_all_products_screen.dart';
 import 'package:daily_shop/screens/homescreen/widgets/ad_offer_widget.dart';
 import 'package:daily_shop/screens/homescreen/widgets/heading_widget.dart';
 import 'package:daily_shop/screens/homescreen/widgets/offer_product_card_widget.dart';

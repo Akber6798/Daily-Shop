@@ -1,5 +1,5 @@
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
-import 'package:daily_shop/screens/homescreen/widgets/offer_product_card_widget.dart';
+import 'package:daily_shop/screens/homeScreen/widgets/offer_product_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

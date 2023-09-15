@@ -2,7 +2,7 @@
 
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_data_details.dart';
-import 'package:daily_shop/screens/categoryscreen/widgets/category_card_widget.dart';
+import 'package:daily_shop/screens/categoryScreen/widgets/category_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -3,7 +3,7 @@ import 'package:daily_shop/commonwidgets/horizontal_spacing_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/consts/routes.dart';
-import 'package:daily_shop/screens/homescreen/innerscreens/product_detail_screen.dart';
+import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,11 @@ class ViewedCardWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 5.h, 10.w, 5.h),
               child: CommonButtonWidget(
-                  height: 40, width: 40, title: "+", onPressedFunction: () {}),
+                height: 35,
+                width: 35,
+                title: "+",
+                onPressedFunction: () {},
+              ),
             )
           ],
         ),

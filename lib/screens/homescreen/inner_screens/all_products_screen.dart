@@ -1,7 +1,7 @@
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
-import 'package:daily_shop/screens/homescreen/widgets/product_card_widget.dart';
+import 'package:daily_shop/screens/homeScreen/widgets/product_card_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

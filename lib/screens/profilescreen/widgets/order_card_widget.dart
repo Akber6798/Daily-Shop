@@ -1,6 +1,6 @@
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/consts/routes.dart';
-import 'package:daily_shop/screens/homescreen/innerscreens/product_detail_screen.dart';
+import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
