@@ -1,12 +1,16 @@
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/controllers/product_controller.dart';
+import 'package:daily_shop/models/product_model.dart';
 import 'package:daily_shop/screens/homeScreen/widgets/product_card_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class AllProductsScreen extends StatefulWidget {
+  static const routeName = '/allProducts';
   const AllProductsScreen({super.key});
 
   @override
@@ -18,6 +22,8 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
   final FocusNode searchFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
+    final productController = Provider.of<ProductController>(context);
+    List<ProductModel> allProducts = productController.getProductList;
     return Scaffold(
       appBar: AppBar(
         title: const Text("All Products"),
@@ -79,14 +85,17 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 10,
+                itemCount: allProducts.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
                     childAspectRatio: 0.75),
                 itemBuilder: ((context, index) {
-                  return ProductCardWidegt();
+                  return ChangeNotifierProvider.value(
+                    value: allProducts[index],
+                    child: const ProductCardWidegt(),
+                  );
                 }),
               ),
               const VerticalSpacingWidget(height: 10)

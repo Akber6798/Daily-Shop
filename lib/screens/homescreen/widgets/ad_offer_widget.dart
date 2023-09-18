@@ -4,8 +4,8 @@ import 'package:daily_shop/consts/app_data_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AdOfferWidget extends StatelessWidget {
-  const AdOfferWidget({super.key});
+class AdBannerWidget extends StatelessWidget {
+  const AdBannerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

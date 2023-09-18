@@ -9,6 +9,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WishlistScreen extends StatelessWidget {
+  static const routeName = '/whislist';
   const WishlistScreen({super.key});
 
   @override

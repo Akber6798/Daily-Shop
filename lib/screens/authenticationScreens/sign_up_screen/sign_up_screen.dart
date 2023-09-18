@@ -1,13 +1,14 @@
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
-import 'package:daily_shop/consts/routes.dart';
 import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
+import 'package:daily_shop/services/global_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpScreen extends StatefulWidget {
+  static const routeName = '/signup';
   const SignUpScreen({super.key});
 
   @override
@@ -285,10 +286,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Routes.instance.push(
-                        context: context,
-                        newScreen: const LoginScreen(),
-                      );
+                      GlobalServices.instance.navigateTo(
+                          context: context, routeName: LoginScreen.routeName);
                     },
                     child: Text(
                       "Login",

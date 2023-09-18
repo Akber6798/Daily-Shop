@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
+  static const routeName = '/forgetPassword';
   const ForgetPasswordScreen({super.key});
 
   @override

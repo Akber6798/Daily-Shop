@@ -2,14 +2,15 @@ import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
-import 'package:daily_shop/consts/routes.dart';
 import 'package:daily_shop/screens/authenticationScreens/forget_password_screen/forget_password_screen.dart';
 import 'package:daily_shop/screens/authenticationScreens/sign_up_screen/sign_up_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
+import 'package:daily_shop/services/global_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = '/login';
   const LoginScreen({super.key});
 
   @override
@@ -176,10 +177,9 @@ class _LoginScreenState extends State<LoginScreen> {
             //! forget password
             InkWell(
               onTap: () {
-                 Routes.instance.push(
-                      context: context,
-                      newScreen: const ForgetPasswordScreen(),
-                    );
+                GlobalServices.instance.navigateTo(
+                    context: context,
+                    routeName: ForgetPasswordScreen.routeName);
               },
               child: Align(
                 alignment: Alignment.centerRight,
@@ -229,10 +229,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 //! sign up
                 InkWell(
                   onTap: () {
-                    Routes.instance.push(
-                      context: context,
-                      newScreen: const SignUpScreen(),
-                    );
+                    GlobalServices.instance.navigateTo(
+                    context: context,
+                    routeName: SignUpScreen.routeName);
                   },
                   child: Text(
                     "Sign up",

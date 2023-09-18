@@ -3,9 +3,9 @@ import 'package:daily_shop/commonwidgets/kg_controller_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
-import 'package:daily_shop/consts/routes.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
+import 'package:daily_shop/services/global_services.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +31,8 @@ class _CartCardWidgetState extends State<CartCardWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Routes.instance.push(
-          context: context,
-          newScreen: const ProductDetailScreen(),
-        );
+        GlobalServices.instance.navigateTo(
+            context: context, routeName: ProductDetailScreen.routeName);
       },
       child: Container(
         decoration: BoxDecoration(

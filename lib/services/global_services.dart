@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 class GlobalServices {
   static GlobalServices instance = GlobalServices();
 
+  //* for navigation
+  navigateTo({required BuildContext context, required String routeName}) {
+    Navigator.pushNamed(context, routeName);
+  }
+
   //* for closing dialogue
   closingDailogue(BuildContext context, String title, String content, Function yesFunction) {
     showDialog(

@@ -1,7 +1,7 @@
 import 'package:daily_shop/consts/app_text_style.dart';
-import 'package:daily_shop/consts/routes.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
+import 'package:daily_shop/services/global_services.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,10 +13,8 @@ class OrderCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        Routes.instance.push(
-          context: context,
-          newScreen: const ProductDetailScreen(),
-        );
+        GlobalServices.instance.navigateTo(
+            context: context, routeName: ProductDetailScreen.routeName);
       },
       title: Text(
         "Apple x12",

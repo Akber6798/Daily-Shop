@@ -4,15 +4,18 @@ import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
-import 'package:daily_shop/consts/routes.dart';
+import 'package:daily_shop/models/product_model.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class ProductCardWidegt extends StatefulWidget {
-  const ProductCardWidegt({super.key});
+  const ProductCardWidegt({
+    super.key,
+  });
 
   @override
   State<ProductCardWidegt> createState() => _ProductCardWidegtState();
@@ -29,15 +32,14 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
 
   @override
   Widget build(BuildContext context) {
+    final productModel = Provider.of<ProductModel>(context);
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: Theme.of(context).cardColor,
       child: InkWell(
         onTap: () {
-          Routes.instance.push(
-            context: context,
-            newScreen: const ProductDetailScreen(),
-          );
+         Navigator.pushNamed(context, ProductDetailScreen.routeName,
+              arguments: productModel.id);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.w),
@@ -47,8 +49,7 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
               const VerticalSpacingWidget(height: 10),
               Center(
                 child: FancyShimmerImage(
-                  imageUrl:
-                      "https://freepngimg.com/download/apple_fruit/24632-1-apple-fruit-transparent.png",
+                  imageUrl: productModel.imageUrl,
                   height: 70.h,
                   width: 100.w,
                   boxFit: BoxFit.fill,
@@ -58,28 +59,34 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Apple",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyle.instance.mainTextStyle(
-                        fSize: 17.sp,
-                        fWeight: FontWeight.w500,
-                        color: GetColorThemeService(context).textColor),
+                  Flexible(
+                    flex: 3,
+                    child: Text(
+                      productModel.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyle.instance.mainTextStyle(
+                          fSize: 17.sp,
+                          fWeight: FontWeight.w500,
+                          color: GetColorThemeService(context).textColor),
+                    ),
                   ),
-                  HeartIconWidget(iconColor: redColor),
+                  Flexible(
+                    flex: 1,
+                    child: HeartIconWidget(iconColor: redColor),
+                  ),
                 ],
               ),
               PriceWidget(
-                  normalPrice: 100,
-                  offerPrice: 60,
+                  normalPrice: productModel.originalPrice,
+                  offerPrice: productModel.offerPrice,
                   quantity: quantityController.text,
-                  isOnOffer: false),
+                  isOnOffer: productModel.isOnOffer ? true : false),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "Kg",
+                    productModel.isPiece ? "Piece" : "Kg",
                     style: AppTextStyle.instance.mainTextStyle(
                         fSize: 15,
                         fWeight: FontWeight.bold,

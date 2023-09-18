@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderScreen extends StatelessWidget {
+  static const routeName = '/order';
   const OrderScreen({super.key});
 
   @override

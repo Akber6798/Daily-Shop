@@ -1,7 +1,6 @@
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
-import 'package:daily_shop/consts/routes.dart';
 import 'package:daily_shop/controllers/theme_controller.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_screen.dart';
@@ -15,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
+  static const routeName = '/profile';
   const ProfileScreen({super.key});
 
   @override
@@ -67,30 +67,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
               title: "Orders",
               icon: IconlyLight.bag,
               onPressed: () {
-                Routes.instance.push(
-                  context: context,
-                  newScreen: const OrderScreen(),
-                );
+                GlobalServices.instance.navigateTo(
+                    context: context, routeName: OrderScreen.routeName);
               },
             ),
             ListTileWidget(
               title: "Whislist",
               icon: IconlyLight.heart,
               onPressed: () {
-                Routes.instance.push(
-                  context: context,
-                  newScreen: const WishlistScreen(),
-                );
+                GlobalServices.instance.navigateTo(
+                    context: context, routeName: WishlistScreen.routeName);
               },
             ),
             ListTileWidget(
               title: "Viewed",
               icon: IconlyLight.show,
               onPressed: () {
-                Routes.instance.push(
-                  context: context,
-                  newScreen: const ViewedScreen(),
-                );
+                GlobalServices.instance.navigateTo(
+                    context: context, routeName: ViewedScreen.routeName);
               },
             ),
             ListTileWidget(

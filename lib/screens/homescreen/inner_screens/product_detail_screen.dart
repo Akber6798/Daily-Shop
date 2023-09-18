@@ -5,12 +5,15 @@ import 'package:daily_shop/commonwidgets/kg_controller_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatefulWidget {
+  static const routeName = '/productDetail';
   const ProductDetailScreen({super.key});
 
   @override
@@ -28,6 +31,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productController = Provider.of<ProductController>(context);
+    final productId = ModalRoute.of(context)!.settings.arguments
+        as String; //* to get the passed arguments from namedroute
+    final currentProduct = productController.findProductById(productId);
+    double productPrice = currentProduct.isOnOffer
+        ? currentProduct.offerPrice
+        : currentProduct.originalPrice;
+    double totalPrice = productPrice * int.parse(quantityController.text);
     return Scaffold(
       appBar: AppBar(),
       body: Column(children: [
@@ -35,8 +46,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           flex: 3,
           child: Center(
             child: FancyShimmerImage(
-                imageUrl:
-                    "https://freepngimg.com/download/apple_fruit/24632-1-apple-fruit-transparent.png",
+                imageUrl: currentProduct.imageUrl,
                 height: 140.h,
                 width: 210.w,
                 boxFit: BoxFit.fill),
@@ -61,7 +71,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Title",
+                        currentProduct.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyle.instance.mainTextStyle(
@@ -76,7 +86,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   Row(
                     children: [
                       Text(
-                        "₹60",
+                        "₹${productPrice.toStringAsFixed(2)}",
                         style: AppTextStyle.instance.mainTextStyle(
                             fSize: 22.sp,
                             fWeight: FontWeight.bold,
@@ -84,7 +94,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 GetColorThemeService(context).headingTextColor),
                       ),
                       Text(
-                        " Kg",
+                        currentProduct.isPiece ? " /Piece" : " /Kg",
                         style: AppTextStyle.instance.mainTextStyle(
                             fSize: 18,
                             fWeight: FontWeight.w600,
@@ -92,9 +102,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                       const HorizontalSpacingWidget(width: 5),
                       Visibility(
-                        visible: true,
+                        visible: currentProduct.isOnOffer ? true : false,
                         child: Text(
-                          "100",
+                          currentProduct.originalPrice.toStringAsFixed(2),
                           style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
@@ -207,7 +217,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           Row(
                             children: [
                               Text(
-                                "₹60",
+                                "₹${totalPrice.toStringAsFixed(2)}",
                                 style: AppTextStyle.instance.mainTextStyle(
                                     fSize: 17.sp,
                                     fWeight: FontWeight.bold,
@@ -215,7 +225,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         .headingTextColor),
                               ),
                               Text(
-                                " Kg",
+                                " /${quantityController.text}Kg",
                                 style: AppTextStyle.instance.mainTextStyle(
                                     fSize: 14,
                                     fWeight: FontWeight.w500,
@@ -228,10 +238,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ],
                       ),
                       CommonButtonWidget(
-                          height: 40,
-                          width: 100,
-                          title: "Add to cart",
-                          onPressedFunction: () {})
+                        height: 40,
+                        width: 100,
+                        title: "Add to cart",
+                        onPressedFunction: () {},
+                      )
                     ],
                   )
                 ],
