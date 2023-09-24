@@ -3,7 +3,7 @@ import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/controllers/theme_controller.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart';
-import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_screen.dart';
+import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_recently_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/wishlist_screen.dart';
 import 'package:daily_shop/screens/profileScreen/widgets/list_tile_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
@@ -84,7 +84,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               icon: IconlyLight.show,
               onPressed: () {
                 GlobalServices.instance.navigateTo(
-                    context: context, routeName: ViewedScreen.routeName);
+                    context: context,
+                    routeName: ViewedRecentlyScreen.routeName);
               },
             ),
             ListTileWidget(

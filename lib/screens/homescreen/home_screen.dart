@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                   }),
 
               SizedBox(
-                height: 170.h,
+                height: 178.h,
                 child: ListView.builder(
                     itemCount: offerAllProducts.length < 7
                         ? offerAllProducts.length

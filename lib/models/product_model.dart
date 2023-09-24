@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ProductModel with ChangeNotifier {
-  final String id, title, imageUrl, categoryName;
-  final double originalPrice, offerPrice;
-  final bool isOnOffer, isPiece;
+  final String id;
+  final String title;
+  final String imageUrl;
+  final String categoryName;
+  final double originalPrice;
+  final double offerPrice;
+  final bool isOnOffer;
+  final bool isPiece;
 
   ProductModel(
       {required this.id,

@@ -17,7 +17,6 @@ class EmptyWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const VerticalSpacingWidget(height: 40),
         Lottie.asset(emptyAnimation),
         const VerticalSpacingWidget(height: 50),
         Text(

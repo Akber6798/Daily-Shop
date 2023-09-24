@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:daily_shop/controllers/bottom_navigation_controller.dart';
+import 'package:daily_shop/controllers/cart_controller.dart';
 import 'package:daily_shop/screens/cartScreen/cart_screen.dart';
 import 'package:daily_shop/screens/categoryScreen/category_screen.dart';
 import 'package:daily_shop/screens/homeScreen/home_screen.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({super.key});
 
-  List<Widget> pages = [
+  List<Widget> pages = const [
     HomeScreen(),
     CategoryScreen(),
     CartScreen(),
@@ -49,14 +50,17 @@ class BottomNavigation extends StatelessWidget {
                     : IconlyLight.category),
               ),
               BottomNavigationBarItem(
-                label: 'Cart',
-                icon: Badge(
-                  label: const Text("3"),
-                  child: Icon(newValue.pageIndex == 2
-                      ? IconlyBold.buy
-                      : IconlyLight.buy),
-                ),
-              ),
+                  label: 'Cart',
+                  icon: Consumer<CartController>(
+                      builder: (context, cartControllerValue, child) {
+                    return Badge(
+                      label: Text(cartControllerValue.getCartProductItems.length
+                          .toString()),
+                      child: Icon(newValue.pageIndex == 2
+                          ? IconlyBold.buy
+                          : IconlyLight.buy),
+                    );
+                  })),
               BottomNavigationBarItem(
                 label: 'Profile',
                 icon: Icon(newValue.pageIndex == 3

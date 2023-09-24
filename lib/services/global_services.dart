@@ -12,7 +12,8 @@ class GlobalServices {
   }
 
   //* for closing dialogue
-  closingDailogue(BuildContext context, String title, String content, Function yesFunction) {
+  closingDailogue(BuildContext context, String title, String content,
+      Function yesFunction) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -52,6 +53,7 @@ class GlobalServices {
             TextButton(
               onPressed: () {
                 yesFunction();
+                Navigator.pop(context);
               },
               child: Text(
                 "Yes",

@@ -4,35 +4,37 @@ import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/models/product_model.dart';
-import 'package:daily_shop/screens/homeScreen/widgets/product_card_widget.dart';
+import 'package:daily_shop/screens/homescreen/widgets/product_card_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class AllProductsScreen extends StatefulWidget {
-  static const routeName = '/allProducts';
-  const AllProductsScreen({super.key});
+class CategoryProductScreen extends StatefulWidget {
+  static const routeName = '/categoryProduct';
+  const CategoryProductScreen({super.key});
 
   @override
-  State<AllProductsScreen> createState() => _AllProductsScreenState();
+  State<CategoryProductScreen> createState() => _CategoryProductScreenState();
 }
 
-class _AllProductsScreenState extends State<AllProductsScreen> {
+class _CategoryProductScreenState extends State<CategoryProductScreen> {
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     final productController = Provider.of<ProductController>(context);
-    List<ProductModel> allProducts = productController.getProductList;
+    final categoryName = ModalRoute.of(context)!.settings.arguments as String;
+    List<ProductModel> categoryProducts =
+        productController.findProductByCategory(categoryName);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All Products"),
+        title: Text(categoryName),
       ),
-      body: allProducts.isEmpty
-          ? const EmptyWidget(
+      body: categoryProducts.isEmpty
+          ?const  EmptyWidget(
               emptyAnimation: "assets/animations/empty_products.json",
-              emptyTitle: "No Products are available")
+              emptyTitle: "No Products are available \nStay tuned")
           : Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: SingleChildScrollView(
@@ -93,7 +95,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: allProducts.length,
+                      itemCount: categoryProducts.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -102,7 +104,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                               childAspectRatio: 0.75),
                       itemBuilder: ((context, index) {
                         return ChangeNotifierProvider.value(
-                          value: allProducts[index],
+                          value: categoryProducts[index],
                           child: const ProductCardWidegt(),
                         );
                       }),

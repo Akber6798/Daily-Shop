@@ -15,13 +15,13 @@ class CommonButtonWidget extends StatelessWidget {
   final double height;
   final double width;
   final String title;
-  final Function onPressedFunction;
+  final Function? onPressedFunction;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onPressedFunction();
+        onPressedFunction!();
       },
       child: Container(
         height: height.h,

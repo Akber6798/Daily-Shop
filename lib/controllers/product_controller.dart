@@ -4,7 +4,6 @@ import 'package:daily_shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductController with ChangeNotifier {
-
   //* to get the product list
   List<ProductModel> get getProductList {
     return _productList;
@@ -16,8 +15,19 @@ class ProductController with ChangeNotifier {
   }
 
   //* to get product by id
-  ProductModel findProductById(String productId){
+  ProductModel findProductById(String productId) {
     return _productList.firstWhere((element) => element.id == productId);
+  }
+
+  //* to get products as per category
+  List<ProductModel> findProductByCategory(String categoryName) {
+    return _productList
+        .where(
+          (element) => element.categoryName.toLowerCase().contains(
+                categoryName.toLowerCase(),
+              ),
+        )
+        .toList();
   }
 
   List<ProductModel> _productList = [

@@ -33,7 +33,7 @@ class OfferAllProductsScreen extends StatelessWidget {
                     crossAxisCount: 2,
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
-                    childAspectRatio: 0.95),
+                    childAspectRatio: 0.88),
                 itemBuilder: ((context, index) {
                   return ChangeNotifierProvider.value(
                     value: offerAllProducts[index],

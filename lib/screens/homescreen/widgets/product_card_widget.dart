@@ -4,6 +4,8 @@ import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/controllers/cart_controller.dart';
+import 'package:daily_shop/controllers/wishlist_controller.dart';
 import 'package:daily_shop/models/product_model.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
@@ -33,12 +35,18 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
   @override
   Widget build(BuildContext context) {
     final productModel = Provider.of<ProductModel>(context);
+    final cartController = Provider.of<CartController>(context);
+    final wishlistController = Provider.of<WishlistController>(context);
+    bool isInCart =
+        cartController.getCartProductItems.containsKey(productModel.id);
+    bool? isInWishlist =
+        wishlistController.getWishlistProductItems.containsKey(productModel.id);
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: Theme.of(context).cardColor,
       child: InkWell(
         onTap: () {
-         Navigator.pushNamed(context, ProductDetailScreen.routeName,
+          Navigator.pushNamed(context, ProductDetailScreen.routeName,
               arguments: productModel.id);
         },
         child: Padding(
@@ -73,7 +81,10 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                   ),
                   Flexible(
                     flex: 1,
-                    child: HeartIconWidget(iconColor: redColor),
+                    child: HeartIconWidget(
+                      productId: productModel.id,
+                      isInWishlist: isInWishlist,
+                    ),
                   ),
                 ],
               ),
@@ -136,10 +147,16 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                 ],
               ),
               const VerticalSpacingWidget(height: 10),
+              //* to add to cart
               InkWell(
-                onTap: () {
-                  print("CLICK ADD TO CART");
-                },
+                onTap: isInCart
+                    ? null
+                    : () {
+                        cartController.addProductToCart(
+                          productId: productModel.id,
+                          quantity: int.parse(quantityController.text),
+                        );
+                      },
                 child: Container(
                   height: 30.h,
                   width: double.infinity,
@@ -152,12 +169,13 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                   ),
                   child: Center(
                     child: Text(
-                      "ADD TO CART",
+                      isInCart ? "IN CART" : "ADD TO CART",
                       style: AppTextStyle().mainTextStyle(
                           fSize: 13,
                           fWeight: FontWeight.bold,
-                          color:
-                              GetColorThemeService(context).headingTextColor),
+                          color: isInCart
+                              ? redColor
+                              : GetColorThemeService(context).headingTextColor),
                     ),
                   ),
                 ),

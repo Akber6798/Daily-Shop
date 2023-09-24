@@ -1,8 +1,9 @@
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
-import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/controllers/cart_controller.dart';
+import 'package:daily_shop/controllers/wishlist_controller.dart';
 import 'package:daily_shop/models/product_model.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
@@ -18,6 +19,12 @@ class OfferProductCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productModel = Provider.of<ProductModel>(context);
+    final cartController = Provider.of<CartController>(context);
+    final wishlistController = Provider.of<WishlistController>(context);
+     bool? isInWishlist =
+        wishlistController.getWishlistProductItems.containsKey(productModel.id);
+    bool isInCart =
+        cartController.getCartProductItems.containsKey(productModel.id);
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: Theme.of(context).cardColor,
@@ -27,7 +34,6 @@ class OfferProductCardWidget extends StatelessWidget {
               arguments: productModel.id);
         },
         child: SizedBox(
-          height: 170.h,
           width: 140.w,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -45,15 +51,16 @@ class OfferProductCardWidget extends StatelessWidget {
                           color: GetColorThemeService(context).textColor),
                     ),
                     HeartIconWidget(
-                      iconColor: redColor,
+                      productId: productModel.id,
+                      isInWishlist: isInWishlist,
                     ),
                   ],
                 ),
                 Center(
                   child: FancyShimmerImage(
                     imageUrl: productModel.imageUrl,
-                    height: 80.h,
-                    width: 110.w,
+                    height: 70.h,
+                    width: 100.w,
                     boxFit: BoxFit.fill,
                   ),
                 ),
@@ -67,7 +74,8 @@ class OfferProductCardWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
+                    Flexible(
+                      flex: 2,
                       child: Text(
                         productModel.title,
                         maxLines: 1,
@@ -78,11 +86,23 @@ class OfferProductCardWidget extends StatelessWidget {
                             color: GetColorThemeService(context).textColor),
                       ),
                     ),
-                    Icon(
-                      IconlyLight.bag,
-                      color: GetColorThemeService(context).headingTextColor,
-                      size: 21.sp,
-                    ),
+                    //* to add to cart
+                    Flexible(
+                      flex: 1,
+                      child: IconButton(
+                        onPressed: () {
+                          cartController.addProductToCart(
+                            productId: productModel.id,
+                            quantity: 1,
+                          );
+                        },
+                        icon: Icon(
+                          isInCart ? IconlyBold.bag : IconlyLight.bag,
+                          color: GetColorThemeService(context).headingTextColor,
+                          size: 21.sp,
+                        ),
+                      ),
+                    )
                   ],
                 )
               ],
