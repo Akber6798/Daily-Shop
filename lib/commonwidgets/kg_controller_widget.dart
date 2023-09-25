@@ -1,5 +1,6 @@
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class KGControllerWidget extends StatelessWidget {
   const KGControllerWidget(
@@ -14,17 +15,20 @@ class KGControllerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: color,
-      borderRadius: BorderRadius.circular(10),
+    return Container(
+      height: 30.h,
+      width: 30.h,
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(10)),
       child: InkWell(
-        borderRadius: BorderRadius.circular(10),
         onTap: () {
           clickedFunction();
         },
-        child: Icon(
-          icon,
-          color: whiteColor,
+        child: Center(
+          child: Icon(
+            icon,
+            color: whiteColor,
+          ),
         ),
       ),
     );

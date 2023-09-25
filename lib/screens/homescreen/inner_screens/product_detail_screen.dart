@@ -38,6 +38,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final currentProduct = productController.findProductById(productId);
     final cartController = Provider.of<CartController>(context);
+    final wishlistController = Provider.of<WishlistController>(context);
     final viewedRecentlyController =
         Provider.of<ViewedRecentlyController>(context);
     double productPrice = currentProduct.isOnOffer
@@ -46,10 +47,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     double totalPrice = productPrice * int.parse(quantityController.text);
     bool isInCart =
         cartController.getCartProductItems.containsKey(currentProduct.id);
-    final wishlistController = Provider.of<WishlistController>(context);
     bool? isInWishlist = wishlistController.getWishlistProductItems
         .containsKey(currentProduct.id);
     return WillPopScope(
+      //! to add recently viewed list
       onWillPop: () async {
         viewedRecentlyController.addProductToRecentlyViewed(
             productId: productId);
@@ -61,6 +62,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           Flexible(
             flex: 3,
             child: Center(
+              //! image
               child: FancyShimmerImage(
                   imageUrl: currentProduct.imageUrl,
                   height: 140.h,
@@ -86,6 +88,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        //! title
                         Text(
                           currentProduct.title,
                           maxLines: 1,
@@ -95,6 +98,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               fWeight: FontWeight.w600,
                               color: GetColorThemeService(context).textColor),
                         ),
+                        //! favourite
                         HeartIconWidget(
                           productId: currentProduct.id,
                           isInWishlist: isInWishlist,
@@ -104,6 +108,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     const VerticalSpacingWidget(height: 20),
                     Row(
                       children: [
+                        //! price
                         Text(
                           "₹${productPrice.toStringAsFixed(2)}",
                           style: AppTextStyle.instance.mainTextStyle(
@@ -169,6 +174,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   icon: Icons.remove),
                             ),
                           ),
+                          //! kg
                           Flexible(
                             flex: 2,
                             child: Padding(
@@ -223,6 +229,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       color: GetColorThemeService(context).headingTextColor,
                       thickness: 1,
                     ),
+                    //! total
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -259,6 +266,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             const VerticalSpacingWidget(height: 10)
                           ],
                         ),
+                        //! add to cart
                         CommonButtonWidget(
                           height: 40,
                           width: 100,

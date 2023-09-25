@@ -29,6 +29,7 @@ class CategoryCardWidget extends StatelessWidget {
         child: Column(
           children: [
           const  VerticalSpacingWidget(height: 5),
+          //! image
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
@@ -40,6 +41,7 @@ class CategoryCardWidget extends StatelessWidget {
                 ),
               ),
             ),
+            //! title
             Text(
               title,
               style: AppTextStyle.instance.mainTextStyle(

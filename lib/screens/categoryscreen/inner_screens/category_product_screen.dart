@@ -25,13 +25,13 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
   Widget build(BuildContext context) {
     final productController = Provider.of<ProductController>(context);
     final categoryName = ModalRoute.of(context)!.settings.arguments as String;
-    List<ProductModel> categoryProducts =
+    List<ProductModel> categoryProductList =
         productController.findProductByCategory(categoryName);
     return Scaffold(
       appBar: AppBar(
         title: Text(categoryName),
       ),
-      body: categoryProducts.isEmpty
+      body: categoryProductList.isEmpty
           ?const  EmptyWidget(
               emptyAnimation: "assets/animations/empty_products.json",
               emptyTitle: "No Products are available \nStay tuned")
@@ -40,6 +40,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    //! search
                     TextFormField(
                       controller: searchController,
                       focusNode: searchFocusNode,
@@ -91,11 +92,12 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                       ),
                     ),
                     const VerticalSpacingWidget(height: 10),
+                    //! product card
                     GridView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: categoryProducts.length,
+                      itemCount: categoryProductList.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -104,7 +106,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                               childAspectRatio: 0.75),
                       itemBuilder: ((context, index) {
                         return ChangeNotifierProvider.value(
-                          value: categoryProducts[index],
+                          value: categoryProductList[index],
                           child: const ProductCardWidegt(),
                         );
                       }),

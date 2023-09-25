@@ -1,3 +1,4 @@
+import 'package:daily_shop/commonwidgets/empty_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/models/product_model.dart';
@@ -18,34 +19,40 @@ class OfferAllProductsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Today Offer"),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.w),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const VerticalSpacingWidget(height: 10),
-              GridView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: offerAllProducts.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10.0,
-                    mainAxisSpacing: 10.0,
-                    childAspectRatio: 0.88),
-                itemBuilder: ((context, index) {
-                  return ChangeNotifierProvider.value(
-                    value: offerAllProducts[index],
-                    child:const OfferProductCardWidget(),
-                  );
-                }),
+      body: offerAllProducts.isEmpty
+          ? const EmptyWidget(
+              emptyAnimation: "assets/animations/empty_products.json",
+              emptyTitle: "No Products are available")
+          : Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const VerticalSpacingWidget(height: 10),
+                    //! offer card
+                    GridView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: offerAllProducts.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10.0,
+                              mainAxisSpacing: 10.0,
+                              childAspectRatio: 0.88),
+                      itemBuilder: ((context, index) {
+                        return ChangeNotifierProvider.value(
+                          value: offerAllProducts[index],
+                          child: const OfferProductCardWidget(),
+                        );
+                      }),
+                    ),
+                    const VerticalSpacingWidget(height: 10)
+                  ],
+                ),
               ),
-              const VerticalSpacingWidget(height: 10)
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

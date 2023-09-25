@@ -36,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             VerticalSpacingWidget(height: 10.h),
+            //! name
             Text(
               "Akber A A",
               style: AppTextStyle.instance.mainTextStyle(
@@ -43,6 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   fWeight: FontWeight.w600,
                   color: GetColorThemeService(context).headingTextColor),
             ),
+            //! email
             Text(
               "akber.a.azad@gmail.com",
               style: AppTextStyle.instance.mainTextStyle(

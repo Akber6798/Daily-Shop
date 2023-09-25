@@ -44,6 +44,7 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: Theme.of(context).cardColor,
+      //! go to product details
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, ProductDetailScreen.routeName,
@@ -56,6 +57,7 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
             children: [
               const VerticalSpacingWidget(height: 10),
               Center(
+                //! image
                 child: FancyShimmerImage(
                   imageUrl: productModel.imageUrl,
                   height: 70.h,
@@ -69,6 +71,7 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                 children: [
                   Flexible(
                     flex: 3,
+                    //! title
                     child: Text(
                       productModel.title,
                       maxLines: 1,
@@ -79,6 +82,7 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                           color: GetColorThemeService(context).textColor),
                     ),
                   ),
+                  //! favourite button
                   Flexible(
                     flex: 1,
                     child: HeartIconWidget(
@@ -88,11 +92,13 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                   ),
                 ],
               ),
+              //! price
               PriceWidget(
                   normalPrice: productModel.originalPrice,
                   offerPrice: productModel.offerPrice,
                   quantity: quantityController.text,
                   isOnOffer: productModel.isOnOffer ? true : false),
+              //! quantity
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -147,7 +153,7 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                 ],
               ),
               const VerticalSpacingWidget(height: 10),
-              //* to add to cart
+              //! add to cart
               InkWell(
                 onTap: isInCart
                     ? null

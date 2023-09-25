@@ -4,7 +4,7 @@ import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/models/product_model.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/all_products_screen.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/offer_all_products_screen.dart';
-import 'package:daily_shop/screens/homescreen/widgets/ad_offer_widget.dart';
+import 'package:daily_shop/screens/homescreen/widgets/ad_banner_widget.dart';
 import 'package:daily_shop/screens/homescreen/widgets/heading_widget.dart';
 import 'package:daily_shop/screens/homescreen/widgets/offer_product_card_widget.dart';
 import 'package:daily_shop/screens/homescreen/widgets/product_card_widget.dart';

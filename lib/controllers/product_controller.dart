@@ -4,6 +4,7 @@ import 'package:daily_shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductController with ChangeNotifier {
+  
   //* to get the product list
   List<ProductModel> get getProductList {
     return _productList;

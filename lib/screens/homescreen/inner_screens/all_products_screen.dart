@@ -38,6 +38,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    //! search
                     TextFormField(
                       controller: searchController,
                       focusNode: searchFocusNode,
@@ -89,6 +90,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                       ),
                     ),
                     const VerticalSpacingWidget(height: 10),
+                    //! product card
                     GridView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,

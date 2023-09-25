@@ -23,6 +23,7 @@ class CategoryScreen extends StatelessWidget {
             children: [
               const VerticalSpacingWidget(height: 15),
               GridView.builder(
+                //! category card
                   itemCount: categoryList.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

@@ -38,16 +38,18 @@ class _CartCardWidgetState extends State<CartCardWidget> {
   Widget build(BuildContext context) {
     final productController = Provider.of<ProductController>(context);
     final cartController = Provider.of<CartController>(context);
+    final wishlistController = Provider.of<WishlistController>(context);
     final cartModel = Provider.of<CartModel>(context);
     final currentProduct =
         productController.findProductById(cartModel.productId);
     double productPrice = currentProduct.isOnOffer
         ? currentProduct.offerPrice
         : currentProduct.originalPrice;
-    final wishlistController = Provider.of<WishlistController>(context);
+    double currentPrice = productPrice * int.parse(quantityController.text);
     bool? isInWishlist = wishlistController.getWishlistProductItems
         .containsKey(currentProduct.id);
     return GestureDetector(
+      //! go to product details
       onTap: () {
         Navigator.pushNamed(context, ProductDetailScreen.routeName,
             arguments: cartModel.productId);
@@ -59,6 +61,7 @@ class _CartCardWidgetState extends State<CartCardWidget> {
         ),
         child: Row(
           children: [
+            //! image
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FancyShimmerImage(
@@ -71,6 +74,7 @@ class _CartCardWidgetState extends State<CartCardWidget> {
             Column(
               children: [
                 const VerticalSpacingWidget(height: 5),
+                //! title
                 Text(
                   currentProduct.title,
                   maxLines: 1,
@@ -107,6 +111,7 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                               icon: Icons.remove),
                         ),
                       ),
+                      //! kg
                       Flexible(
                         flex: 2,
                         child: Padding(
@@ -181,13 +186,15 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                       color: redColor,
                     ),
                   ),
+                  //! favourite
                   HeartIconWidget(
                     productId: currentProduct.id,
                     isInWishlist: isInWishlist,
                   ),
                   const VerticalSpacingWidget(height: 5),
+                  //! total price
                   Text(
-                    "₹ ${productPrice.toStringAsFixed(2)}",
+                    "₹ ${currentPrice.toStringAsFixed(2)}",
                     style: AppTextStyle.instance.mainTextStyle(
                         fSize: 14.sp,
                         fWeight: FontWeight.w500,

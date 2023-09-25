@@ -21,13 +21,14 @@ class OfferProductCardWidget extends StatelessWidget {
     final productModel = Provider.of<ProductModel>(context);
     final cartController = Provider.of<CartController>(context);
     final wishlistController = Provider.of<WishlistController>(context);
-     bool? isInWishlist =
+    bool? isInWishlist =
         wishlistController.getWishlistProductItems.containsKey(productModel.id);
     bool isInCart =
         cartController.getCartProductItems.containsKey(productModel.id);
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: Theme.of(context).cardColor,
+      //! go to product details
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, ProductDetailScreen.routeName,
@@ -43,6 +44,7 @@ class OfferProductCardWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    //! quantity
                     Text(
                       productModel.isPiece ? "1 Piece" : "1 Kg",
                       style: AppTextStyle.instance.mainTextStyle(
@@ -50,6 +52,7 @@ class OfferProductCardWidget extends StatelessWidget {
                           fWeight: FontWeight.bold,
                           color: GetColorThemeService(context).textColor),
                     ),
+                    //! favourite button
                     HeartIconWidget(
                       productId: productModel.id,
                       isInWishlist: isInWishlist,
@@ -57,6 +60,7 @@ class OfferProductCardWidget extends StatelessWidget {
                   ],
                 ),
                 Center(
+                  //! image
                   child: FancyShimmerImage(
                     imageUrl: productModel.imageUrl,
                     height: 70.h,
@@ -65,6 +69,7 @@ class OfferProductCardWidget extends StatelessWidget {
                   ),
                 ),
                 const VerticalSpacingWidget(height: 5),
+                //! price
                 PriceWidget(
                   isOnOffer: true,
                   normalPrice: productModel.originalPrice,
@@ -74,6 +79,7 @@ class OfferProductCardWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    //! title
                     Flexible(
                       flex: 2,
                       child: Text(
@@ -86,7 +92,7 @@ class OfferProductCardWidget extends StatelessWidget {
                             color: GetColorThemeService(context).textColor),
                       ),
                     ),
-                    //* to add to cart
+                    //! to add to cart
                     Flexible(
                       flex: 1,
                       child: IconButton(

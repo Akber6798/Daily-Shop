@@ -62,12 +62,14 @@ class CartScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        //! for order
                         CommonButtonWidget(
                             height: 40,
                             width: 100,
                             title: "Order Now",
                             onPressedFunction: () {}),
                         FittedBox(
+                          //! total price
                           child: Text(
                             "Total: ₹ 1000",
                             style: AppTextStyle.instance.mainTextStyle(
@@ -80,6 +82,7 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   const VerticalSpacingWidget(height: 10),
+                  //! cart card
                   Expanded(
                     child: ListView.builder(
                       itemCount: cartProductList.length,
