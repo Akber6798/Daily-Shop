@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "58854265954",
+    "project_id": "daily-shop-cc247",
+    "storage_bucket": "daily-shop-cc247.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58854265954:android:53dc394ab8faa00191ad3b",
+        "android_client_info": {
+          "package_name": "com.example.daily_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58854265954-t8gi2lgvr9mha1d770aid7rm8i3mh92s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMbMYEfrvfOfW88faeSnySz1nEzGCrq0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58854265954-t8gi2lgvr9mha1d770aid7rm8i3mh92s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

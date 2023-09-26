@@ -46,7 +46,7 @@ class ProductController with ChangeNotifier {
         id: "101",
         title: "Potato",
         imageUrl:
-            "https://w7.pngwing.com/pngs/74/390/png-transparent-mashed-potato-french-fries-potato-wedges-baked-potato-potato-chip-vegetable-food-baking-tomato-thumbnail.png",
+            "https://www.jiomart.com/images/product/original/590000090/potato-1-kg-product-images-o590000090-p590000090-0-202207291750.jpg?im=Resize=(420,420)",
         categoryName: "Vegitables",
         originalPrice: 40,
         offerPrice: 30,
@@ -66,7 +66,7 @@ class ProductController with ChangeNotifier {
         id: "103",
         title: "Tomato",
         imageUrl:
-            "https://w1.pngwing.com/pngs/720/511/png-transparent-fruits-and-vegetables-berries-juice-food-list-of-culinary-fruits-tomato-nuts-n-spices-ingredient-thumbnail.png",
+            "https://amirthamnaturals.in/wp-content/uploads/2020/11/pngguru.com-4-600x394.png",
         categoryName: "Vegitables",
         originalPrice: 40,
         offerPrice: 20,
@@ -76,7 +76,7 @@ class ProductController with ChangeNotifier {
         id: "104",
         title: "Mango",
         imageUrl:
-            "https://w7.pngwing.com/pngs/446/952/png-transparent-ripe-mangos-banganapalle-alphonso-mango-fruit-benishan-mango-natural-foods-food-citrus-thumbnail.png",
+            "https://www.bigbasket.com/media/uploads/p/xxl/40075207_6-fresho-kesar-mango.jpg",
         categoryName: "Fruites",
         originalPrice: 120,
         offerPrice: 100,
@@ -98,8 +98,8 @@ class ProductController with ChangeNotifier {
         imageUrl:
             "https://media.istockphoto.com/id/606230354/photo/dragon-fruit-isolated.jpg?s=612x612&w=0&k=20&c=endAwrFRx9oSVcwJExjDdKc9wG2hVx4UJFnFptIg7-Y=",
         categoryName: "Fruites",
-        originalPrice: 250,
-        offerPrice: 150,
+        originalPrice: 70,
+        offerPrice: 50,
         isOnOffer: true,
         isPiece: true),
   ];

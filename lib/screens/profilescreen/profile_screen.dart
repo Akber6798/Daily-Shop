@@ -1,13 +1,19 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/controllers/theme_controller.dart';
+import 'package:daily_shop/screens/authenticationScreens/forget_password_screen/forget_password_screen.dart';
+import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_recently_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/wishlist_screen.dart';
 import 'package:daily_shop/screens/profileScreen/widgets/list_tile_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:daily_shop/services/global_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +29,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _addressController = TextEditingController();
+  final User? user = authenticationInstance.currentUser;
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<ThemeController>(context);
@@ -85,6 +92,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               title: "Viewed",
               icon: IconlyLight.show,
               onPressed: () {
+                if (user == null) {
+                  GlobalServices.instance
+                      .errorDailogue(context, "No user found \nPlease login..");
+                  return;
+                }
                 GlobalServices.instance.navigateTo(
                     context: context,
                     routeName: ViewedRecentlyScreen.routeName);
@@ -93,7 +105,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ListTileWidget(
               title: "Forgot Password",
               icon: IconlyLight.unlock,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ForgetPasswordScreen(),
+                  ),
+                );
+              },
             ),
             SwitchListTile(
                 title: Text(
@@ -114,11 +133,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   themeState.setDarkTheme = value;
                 }),
             ListTileWidget(
-              title: "Logout",
+              title: user == null ? "Login" : "Logout",
               icon: IconlyLight.logout,
               onPressed: () {
-                GlobalServices.instance.closingDailogue(
-                    context, "Sign Out", "Do you wanna Sign Out?", () {});
+                user == null
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      )
+                    : GlobalServices.instance.closingDailogue(
+                        context, "Sign Out", "Do you wanna Sign Out?",
+                        () async {
+                        await authenticationInstance.signOut();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      });
               },
             ),
             const VerticalSpacingWidget(height: 30),

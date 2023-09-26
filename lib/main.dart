@@ -1,4 +1,3 @@
-import 'package:daily_shop/commonwidgets/bottom_navigation.dart';
 import 'package:daily_shop/consts/theme_style.dart';
 import 'package:daily_shop/controllers/bottom_navigation_controller.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
@@ -20,11 +19,19 @@ import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart
 import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_recently_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/wishlist_screen.dart';
 import 'package:daily_shop/screens/profileScreen/profile_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  //! for portrait screen only
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -71,7 +78,7 @@ class _MyAppState extends State<MyApp> {
               return MaterialApp(
                 theme: ThemeStyle.themeData(newTheme.darkTheme, context),
                 debugShowCheckedModeBanner: false,
-                home: BottomNavigation(),
+                home: const LoginScreen(),
                 routes: {
                   LoginScreen.routeName: (context) => const LoginScreen(),
                   SignUpScreen.routeName: (context) => const SignUpScreen(),
@@ -86,7 +93,8 @@ class _MyAppState extends State<MyApp> {
                       const ProductDetailScreen(),
                   ProfileScreen.routeName: (context) => const ProfileScreen(),
                   OrderScreen.routeName: (context) => const OrderScreen(),
-                  ViewedRecentlyScreen.routeName: (context) => const ViewedRecentlyScreen(),
+                  ViewedRecentlyScreen.routeName: (context) =>
+                      const ViewedRecentlyScreen(),
                   WishlistScreen.routeName: (context) => const WishlistScreen(),
                   CartScreen.routeName: (context) => const CartScreen(),
                   CategoryScreen.routeName: (context) => const CategoryScreen(),

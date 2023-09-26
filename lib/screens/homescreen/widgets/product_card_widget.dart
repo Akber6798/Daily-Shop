@@ -4,12 +4,15 @@ import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
 import 'package:daily_shop/controllers/wishlist_controller.dart';
 import 'package:daily_shop/models/product_model.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
+import 'package:daily_shop/services/global_services.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +37,7 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
 
   @override
   Widget build(BuildContext context) {
+    final User? user = authenticationInstance.currentUser;
     final productModel = Provider.of<ProductModel>(context);
     final cartController = Provider.of<CartController>(context);
     final wishlistController = Provider.of<WishlistController>(context);
@@ -158,6 +162,11 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                 onTap: isInCart
                     ? null
                     : () {
+                        if (user == null) {
+                          GlobalServices.instance.errorDailogue(
+                              context, "No user found \nPlease login..");
+                          return;
+                        }
                         cartController.addProductToCart(
                           productId: productModel.id,
                           quantity: int.parse(quantityController.text),

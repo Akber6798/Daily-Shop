@@ -1,10 +1,9 @@
-
 final List<String> offerImages = [
-  "assets/offers/offer1.jpg",
-  "assets/offers/offer2.png",
-  "assets/offers/offer3.jpg",
-  "assets/offers/offer4.jpg",
-  "assets/offers/offer5.jpg"
+  "assets/adBanner/offer1.jpg",
+  "assets/adBanner/offer2.png",
+  "assets/adBanner/offer3.jpg",
+  "assets/adBanner/offer4.jpg",
+  "assets/adBanner/offer5.jpg"
 ];
 
 List<Map<String, dynamic>> categoryList = [
@@ -15,4 +14,3 @@ List<Map<String, dynamic>> categoryList = [
   {"catergoryTitle": "Spices", "categoryImage": "assets/images/spices.png"},
   {"catergoryTitle": "Grains", "categoryImage": "assets/images/grains.png"},
 ];
-
