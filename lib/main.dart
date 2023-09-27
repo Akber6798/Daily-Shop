@@ -1,3 +1,5 @@
+import 'package:daily_shop/commonwidgets/bottom_navigation.dart';
+import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/consts/theme_style.dart';
 import 'package:daily_shop/controllers/bottom_navigation_controller.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
@@ -78,7 +80,9 @@ class _MyAppState extends State<MyApp> {
               return MaterialApp(
                 theme: ThemeStyle.themeData(newTheme.darkTheme, context),
                 debugShowCheckedModeBanner: false,
-                home: const LoginScreen(),
+                home: authenticationInstance.currentUser == null
+                    ? const LoginScreen()
+                    : BottomNavigation(),
                 routes: {
                   LoginScreen.routeName: (context) => const LoginScreen(),
                   SignUpScreen.routeName: (context) => const SignUpScreen(),

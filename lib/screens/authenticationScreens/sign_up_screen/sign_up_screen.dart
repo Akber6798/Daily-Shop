@@ -1,16 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_shop/commonwidgets/bottom_navigation.dart';
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
-import 'package:daily_shop/screens/authenticationScreens/widgets/loading_widget.dart';
+import 'package:daily_shop/commonwidgets/loading_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:daily_shop/services/global_services.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -46,6 +46,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
         await authenticationInstance.createUserWithEmailAndPassword(
             email: emailController.text.toLowerCase().trim(),
             password: passwordController.text.trim());
+        //* store details to firestore
+        final User? user = authenticationInstance.currentUser;
+        final userId = user!.uid;
+        await FirebaseFirestore.instance
+            .collection("userDetails")
+            .doc(userId)
+            .set({
+          'id': userId,
+          'name': nameController.text,
+          'email': emailController.text,
+          'address': addressController.text,
+          'userWishlist': [],
+          'userCartList': [],
+          'createdAt': Timestamp.now()
+        });
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -55,13 +70,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       } on FirebaseException catch (firebaseError) {
         GlobalServices.instance
             .errorDailogue(context, firebaseError.message.toString());
-        log("error $firebaseError");
         setState(() {
           isLoading = false;
         });
       } catch (error) {
         GlobalServices.instance.errorDailogue(context, error.toString());
-        log("error $error");
         setState(() {
           isLoading = false;
         });
