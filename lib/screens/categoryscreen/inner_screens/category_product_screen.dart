@@ -21,6 +21,7 @@ class CategoryProductScreen extends StatefulWidget {
 class _CategoryProductScreenState extends State<CategoryProductScreen> {
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode();
+  List<ProductModel> searchProductsList = [];
   @override
   Widget build(BuildContext context) {
     final productController = Provider.of<ProductController>(context);
@@ -32,7 +33,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
         title: Text(categoryName),
       ),
       body: categoryProductList.isEmpty
-          ?const  EmptyWidget(
+          ? const EmptyWidget(
               emptyAnimation: "assets/animations/empty_products.json",
               emptyTitle: "No Products are available \nStay tuned")
           : Padding(
@@ -47,8 +48,12 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                       cursorColor:
                           GetColorThemeService(context).headingTextColor,
                       keyboardType: TextInputType.text,
-                      onChanged: (newValue) {
-                        setState(() {});
+                      onChanged: (seacrhValue) {
+                        setState(() {
+                          //* add searches
+                          searchProductsList =
+                              productController.searchProduct(seacrhValue);
+                        });
                       },
                       style: AppTextStyle().mainTextStyle(
                           fSize: 15,
@@ -65,8 +70,10 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                         ),
                         suffixIcon: IconButton(
                           onPressed: () {
-                            searchController.clear();
-                            searchFocusNode.unfocus();
+                            setState(() {
+                              searchController.clear();
+                              searchFocusNode.unfocus();
+                            });
                           },
                           icon: Icon(Icons.cancel,
                               color: searchFocusNode.hasFocus
@@ -93,24 +100,35 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                     ),
                     const VerticalSpacingWidget(height: 10),
                     //! product card
-                    GridView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: categoryProductList.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10.0,
-                              mainAxisSpacing: 10.0,
-                              childAspectRatio: 0.75),
-                      itemBuilder: ((context, index) {
-                        return ChangeNotifierProvider.value(
-                          value: categoryProductList[index],
-                          child: const ProductCardWidegt(),
-                        );
-                      }),
-                    ),
+                    searchProductsList.isEmpty &&
+                            searchController.text.isNotEmpty
+                        ? const EmptyWidget(
+                            emptyAnimation:
+                                "assets/animations/empty_search.json",
+                            emptyTitle:
+                                "No product found\nPlease try another keyword")
+                        : GridView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: searchController.text.isNotEmpty
+                                ? searchProductsList.length
+                                : categoryProductList.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 10.0,
+                                    mainAxisSpacing: 10.0,
+                                    childAspectRatio: 0.75),
+                            itemBuilder: ((context, index) {
+                              return ChangeNotifierProvider.value(
+                                value: searchController.text.isNotEmpty
+                                    ? searchProductsList[index]
+                                    : categoryProductList[index],
+                                child: const ProductCardWidegt(),
+                              );
+                            }),
+                          ),
                     const VerticalSpacingWidget(height: 10)
                   ],
                 ),

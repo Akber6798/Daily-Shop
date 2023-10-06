@@ -21,6 +21,8 @@ class AllProductsScreen extends StatefulWidget {
 class _AllProductsScreenState extends State<AllProductsScreen> {
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode();
+  List<ProductModel> searchProductsList = [];
+
   @override
   Widget build(BuildContext context) {
     final productController = Provider.of<ProductController>(context);
@@ -45,8 +47,14 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                       cursorColor:
                           GetColorThemeService(context).headingTextColor,
                       keyboardType: TextInputType.text,
-                      onChanged: (newValue) {
-                        setState(() {});
+                      onChanged: (seacrhValue) {
+                        setState(() {
+                          setState(() {
+                            //* add searches
+                            searchProductsList =
+                                productController.searchProduct(seacrhValue);
+                          });
+                        });
                       },
                       style: AppTextStyle().mainTextStyle(
                           fSize: 15,
@@ -63,8 +71,10 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                         ),
                         suffixIcon: IconButton(
                           onPressed: () {
-                            searchController.clear();
-                            searchFocusNode.unfocus();
+                            setState(() {
+                              searchController.clear();
+                              searchFocusNode.unfocus();
+                            });
                           },
                           icon: Icon(Icons.cancel,
                               color: searchFocusNode.hasFocus
@@ -91,24 +101,35 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                     ),
                     const VerticalSpacingWidget(height: 10),
                     //! product card
-                    GridView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: allProducts.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10.0,
-                              mainAxisSpacing: 10.0,
-                              childAspectRatio: 0.75),
-                      itemBuilder: ((context, index) {
-                        return ChangeNotifierProvider.value(
-                          value: allProducts[index],
-                          child: const ProductCardWidegt(),
-                        );
-                      }),
-                    ),
+                    searchProductsList.isEmpty &&
+                            searchController.text.isNotEmpty
+                        ? const EmptyWidget(
+                            emptyAnimation:
+                                "assets/animations/empty_search.json",
+                            emptyTitle:
+                                "No product found\nPlease try another keyword")
+                        : GridView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: searchController.text.isNotEmpty
+                                ? searchProductsList.length
+                                : allProducts.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 10.0,
+                                    mainAxisSpacing: 10.0,
+                                    childAspectRatio: 0.75),
+                            itemBuilder: ((context, index) {
+                              return ChangeNotifierProvider.value(
+                                value: searchController.text.isNotEmpty
+                                    ? searchProductsList[index]
+                                    : allProducts[index],
+                                child: const ProductCardWidegt(),
+                              );
+                            }),
+                          ),
                     const VerticalSpacingWidget(height: 10)
                   ],
                 ),

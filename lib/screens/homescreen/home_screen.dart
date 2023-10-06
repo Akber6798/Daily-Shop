@@ -14,9 +14,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final productProvider =
+        Provider.of<ProductController>(context, listen: false);
+    productProvider.fetchProducts(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +71,8 @@ class HomeScreen extends StatelessWidget {
                   title: "Today Offers",
                   viewAllFunction: () {
                     GlobalServices.instance.navigateTo(
-                    context: context,
-                    routeName: OfferAllProductsScreen.routeName);
+                        context: context,
+                        routeName: OfferAllProductsScreen.routeName);
                   }),
 
               SizedBox(
@@ -84,8 +97,8 @@ class HomeScreen extends StatelessWidget {
                   title: "All Products",
                   viewAllFunction: () {
                     GlobalServices.instance.navigateTo(
-                    context: context,
-                    routeName: AllProductsScreen.routeName);
+                        context: context,
+                        routeName: AllProductsScreen.routeName);
                   }),
               GridView.builder(
                 padding: EdgeInsets.zero,

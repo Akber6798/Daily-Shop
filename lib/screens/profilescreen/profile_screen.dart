@@ -33,10 +33,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController addressController = TextEditingController();
   final FocusNode addressFocusNode = FocusNode();
   final User? user = authenticationInstance.currentUser;
-  bool isLoading = false;
   String? userName;
   String? userEmail;
   String? userAddress;
+  bool isLoading = false;
 
   @override
   void initState() {

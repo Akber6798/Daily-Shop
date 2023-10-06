@@ -10,6 +10,7 @@ class ProductModel with ChangeNotifier {
   final bool isOnOffer;
   final bool isPiece;
 
+  
   ProductModel(
       {required this.id,
       required this.title,
