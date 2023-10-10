@@ -1,4 +1,3 @@
-import 'package:daily_shop/commonwidgets/bottom_navigation.dart';
 import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/consts/theme_style.dart';
 import 'package:daily_shop/controllers/bottom_navigation_controller.dart';
@@ -17,6 +16,7 @@ import 'package:daily_shop/screens/homeScreen/home_screen.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/all_products_screen.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/offer_all_products_screen.dart';
 import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
+import 'package:daily_shop/screens/loadingScreen/loading_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_recently_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/wishlist_screen.dart';
@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 home: authenticationInstance.currentUser == null
                     ? const LoginScreen()
-                    : BottomNavigation(),
+                    : const LoadingScreen(),
                 routes: {
                   LoginScreen.routeName: (context) => const LoginScreen(),
                   SignUpScreen.routeName: (context) => const SignUpScreen(),

@@ -4,6 +4,7 @@ import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
+import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/screens/cartScreen/widget/cart_card_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:daily_shop/services/global_services.dart';
@@ -21,6 +22,15 @@ class CartScreen extends StatelessWidget {
     final cartController = Provider.of<CartController>(context);
     final cartProductList =
         cartController.getCartProductItems.values.toList().reversed.toList();
+    final productController = Provider.of<ProductController>(context);
+    double totalPrice = 0.0;
+    cartController.getCartProductItems.forEach((key, value) {
+      final currentProdcut = productController.findProductById(value.productId);
+      totalPrice += (currentProdcut.isOnOffer
+              ? currentProdcut.offerPrice
+              : currentProdcut.originalPrice) *
+          value.quantity;
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -39,8 +49,8 @@ class CartScreen extends StatelessWidget {
                 context,
                 "Delete cart",
                 "Do you want to delete all?",
-                () {
-                  cartController.clearAllCartItems();
+                () async {
+                  await cartController.clearAllCartItems();
                 },
               );
             },
@@ -71,7 +81,7 @@ class CartScreen extends StatelessWidget {
                         FittedBox(
                           //! total price
                           child: Text(
-                            "Total: ₹ 1000",
+                            "Total: ₹ ${totalPrice.toStringAsFixed(2)}",
                             style: AppTextStyle.instance.mainTextStyle(
                                 fSize: 16.sp,
                                 fWeight: FontWeight.w500,
@@ -92,8 +102,7 @@ class CartScreen extends StatelessWidget {
                           child: ChangeNotifierProvider.value(
                             value: cartProductList[index],
                             child: CartCardWidget(
-                              passedQuantity:
-                                  cartProductList[index].quantity,
+                              passedQuantity: cartProductList[index].quantity,
                             ),
                           ),
                         );

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
@@ -67,11 +69,16 @@ class WishlistCardWidget extends StatelessWidget {
                       ),
                       const VerticalSpacingWidget(height: 10),
                       IconButton(
-                        onPressed: () {
-                          cartController.addProductToCart(
-                            productId: currentProduct.id,
-                            quantity: 1,
-                          );
+                        onPressed: () async {
+                          // cartController.addProductToCart(
+                          //   productId: currentProduct.id,
+                          //   quantity: 1,
+                          // );
+                          await cartController.addProductToCart(
+                              productId: currentProduct.id,
+                              quantity: 1,
+                              context: context);
+                          await cartController.fetchCartProducts(context: context);
                         },
                         icon: Icon(
                           isInCart ? IconlyBold.bag : IconlyLight.bag,

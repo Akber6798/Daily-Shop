@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:daily_shop/commonwidgets/horizontal_spacing_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
@@ -82,11 +84,16 @@ class ViewedRecentlyCardWidget extends StatelessWidget {
                 child: InkWell(
                   onTap: isInCart
                       ? null
-                      : () {
-                          cartController.addProductToCart(
-                            productId: currentProduct.id,
-                            quantity: 1,
-                          );
+                      : () async {
+                          // cartController.addProductToCart(
+                          //   productId: currentProduct.id,
+                          //   quantity: 1,
+                          // );
+                          await cartController.addProductToCart(
+                              productId: currentProduct.id,
+                              quantity: 1,
+                              context: context);
+                          await cartController.fetchCartProducts(context: context);
                         },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

@@ -177,9 +177,11 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                 children: [
                   //* single product remove
                   IconButton(
-                    onPressed: () {
-                      cartController
-                          .removeOneProductFromCart(cartModel.productId);
+                    onPressed: () async {
+                      await cartController.removeOneProductFromCart(
+                          cartId: cartModel.id,
+                          productId: cartModel.productId,
+                          quantity: cartModel.quantity);
                     },
                     icon: Icon(
                       CupertinoIcons.cart_badge_minus,

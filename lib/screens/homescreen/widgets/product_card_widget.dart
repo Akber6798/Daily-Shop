@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/horizontal_spacing_widget.dart';
 import 'package:daily_shop/commonwidgets/price_widget.dart';
@@ -161,16 +163,21 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
               InkWell(
                 onTap: isInCart
                     ? null
-                    : () {
+                    : () async {
                         if (user == null) {
                           GlobalServices.instance.errorDailogue(
                               context, "No user found \nPlease login..");
                           return;
                         }
-                        cartController.addProductToCart(
-                          productId: productModel.id,
-                          quantity: int.parse(quantityController.text),
-                        );
+                        // cartController.addProductToCart(
+                        //   productId: productModel.id,
+                        //   quantity: int.parse(quantityController.text),
+                        // );
+                        await cartController.addProductToCart(
+                            productId: productModel.id,
+                            quantity: int.parse(quantityController.text),
+                            context: context);
+                        await cartController.fetchCartProducts(context: context);
                       },
                 child: Container(
                   height: 30.h,

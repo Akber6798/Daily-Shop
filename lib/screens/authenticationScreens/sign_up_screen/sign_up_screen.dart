@@ -1,13 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:daily_shop/commonwidgets/bottom_navigation.dart';
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/loading_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
+import 'package:daily_shop/screens/loadingScreen/loading_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:daily_shop/services/global_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -64,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: ((context) => BottomNavigation()),
+            builder: ((context) => const LoadingScreen()),
           ),
         );
       } on FirebaseException catch (firebaseError) {

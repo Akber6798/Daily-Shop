@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
@@ -100,16 +102,21 @@ class OfferProductCardWidget extends StatelessWidget {
                     Flexible(
                       flex: 1,
                       child: IconButton(
-                        onPressed: () {
+                        onPressed: ()async {
                           if (user == null) {
                             GlobalServices.instance.errorDailogue(
                                 context, "No user found \nPlease login..");
                             return;
                           }
-                          cartController.addProductToCart(
-                            productId: productModel.id,
-                            quantity: 1,
-                          );
+                          // cartController.addProductToCart(
+                          //   productId: productModel.id,
+                          //   quantity: 1,
+                          // );
+                        await cartController.addProductToCart(
+                              productId: productModel.id,
+                              quantity: 1,
+                              context: context);
+                         await cartController.fetchCartProducts(context: context);     
                         },
                         icon: Icon(
                           isInCart ? IconlyBold.bag : IconlyLight.bag,
