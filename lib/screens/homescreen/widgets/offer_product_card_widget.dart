@@ -108,10 +108,6 @@ class OfferProductCardWidget extends StatelessWidget {
                                 context, "No user found \nPlease login..");
                             return;
                           }
-                          // cartController.addProductToCart(
-                          //   productId: productModel.id,
-                          //   quantity: 1,
-                          // );
                         await cartController.addProductToCart(
                               productId: productModel.id,
                               quantity: 1,

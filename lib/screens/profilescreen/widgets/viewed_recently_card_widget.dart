@@ -85,15 +85,12 @@ class ViewedRecentlyCardWidget extends StatelessWidget {
                   onTap: isInCart
                       ? null
                       : () async {
-                          // cartController.addProductToCart(
-                          //   productId: currentProduct.id,
-                          //   quantity: 1,
-                          // );
                           await cartController.addProductToCart(
                               productId: currentProduct.id,
                               quantity: 1,
                               context: context);
-                          await cartController.fetchCartProducts(context: context);
+                          await cartController.fetchCartProducts(
+                              context: context);
                         },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

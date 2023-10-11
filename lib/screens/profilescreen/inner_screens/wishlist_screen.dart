@@ -41,8 +41,8 @@ class WishlistScreen extends StatelessWidget {
                 context,
                 "Delete wishlist",
                 "Do you want to delete all?",
-                () {
-                  wishlistController.clearAllWishlistItems();
+                ()async {
+                await  wishlistController.clearAllWishlistItems();
                 },
               );
             },

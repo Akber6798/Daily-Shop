@@ -279,24 +279,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           title: isInCart ? "In cart" : "Add to cart",
                           onPressedFunction: isInCart
                               ? null
-                              : ()async {
+                              : () async {
                                   if (user == null) {
                                     GlobalServices.instance.errorDailogue(
                                         context,
                                         "No user found \nPlease login..");
                                     return;
                                   }
-                                  // cartController.addProductToCart(
-                                  //   productId: currentProduct.id,
-                                  //   quantity:
-                                  //       int.parse(quantityController.text),
-                                  // );
-                                await cartController.addProductToCart(
+                                  await cartController.addProductToCart(
                                       productId: currentProduct.id,
                                       quantity:
                                           int.parse(quantityController.text),
                                       context: context);
-                                      await cartController.fetchCartProducts(context: context);
+                                  await cartController.fetchCartProducts(
+                                      context: context);
                                 },
                         )
                       ],

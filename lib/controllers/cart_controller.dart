@@ -44,6 +44,7 @@ class CartController with ChangeNotifier {
     } catch (error) {
       GlobalServices.instance.errorDailogue(context, error.toString());
     }
+    notifyListeners();
   }
 
   //* fetch cart products from database
@@ -101,19 +102,22 @@ class CartController with ChangeNotifier {
     notifyListeners();
   }
 
-  //* clear cart
+
+
   Future<void> clearAllCartItems() async {
     final User? user = authenticationInstance.currentUser;
-    await FirebaseFirestore.instance
-        .collection("userDetails")
-        .doc(user!.uid)
-        .update(
-      {
+    if (user != null) {
+      await FirebaseFirestore.instance
+          .collection("userDetails")
+          .doc(user.uid)
+          .update({
         'userCartList': [],
-      },
-    );
-    _cartProductItems.clear();
-    notifyListeners();
+      });
+      _cartProductItems.clear();
+      notifyListeners();
+    } else {
+      _cartProductItems.clear();
+    }
   }
 
   //* to reduce quantity by one

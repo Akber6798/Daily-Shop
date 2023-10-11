@@ -169,15 +169,12 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
                               context, "No user found \nPlease login..");
                           return;
                         }
-                        // cartController.addProductToCart(
-                        //   productId: productModel.id,
-                        //   quantity: int.parse(quantityController.text),
-                        // );
                         await cartController.addProductToCart(
                             productId: productModel.id,
                             quantity: int.parse(quantityController.text),
                             context: context);
-                        await cartController.fetchCartProducts(context: context);
+                        await cartController.fetchCartProducts(
+                            context: context);
                       },
                 child: Container(
                   height: 30.h,

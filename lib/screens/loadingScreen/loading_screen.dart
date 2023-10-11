@@ -5,6 +5,7 @@ import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
 import 'package:daily_shop/controllers/product_controller.dart';
+import 'package:daily_shop/controllers/wishlist_controller.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +29,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
           Provider.of<ProductController>(context, listen: false);
       final cartController =
           Provider.of<CartController>(context, listen: false);
+      final wishlistController =
+          Provider.of<WishlistController>(context, listen: false);
       final User? user = authenticationInstance.currentUser;
       if (user == null) {
         await productController.fetchProducts(context);
         await cartController.clearAllCartItems();
+        await wishlistController.clearAllWishlistItems();
       } else {
         await productController.fetchProducts(context);
         await cartController.fetchCartProducts(context: context);
+        await wishlistController.fetchWishlistProducts(context: context);
       }
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

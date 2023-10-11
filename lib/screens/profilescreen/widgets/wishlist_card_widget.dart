@@ -70,15 +70,12 @@ class WishlistCardWidget extends StatelessWidget {
                       const VerticalSpacingWidget(height: 10),
                       IconButton(
                         onPressed: () async {
-                          // cartController.addProductToCart(
-                          //   productId: currentProduct.id,
-                          //   quantity: 1,
-                          // );
                           await cartController.addProductToCart(
                               productId: currentProduct.id,
                               quantity: 1,
                               context: context);
-                          await cartController.fetchCartProducts(context: context);
+                          await cartController.fetchCartProducts(
+                              context: context);
                         },
                         icon: Icon(
                           isInCart ? IconlyBold.bag : IconlyLight.bag,
