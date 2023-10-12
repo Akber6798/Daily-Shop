@@ -8,6 +8,11 @@ import 'package:flutter/material.dart';
 class ProductController with ChangeNotifier {
   static List<ProductModel> _productList = [];
 
+  //* to get the product list
+  List<ProductModel> get getProductList {
+    return _productList;
+  }
+
   //* get products from database
   Future<void> fetchProducts(BuildContext context) async {
     try {
@@ -20,14 +25,15 @@ class ProductController with ChangeNotifier {
           _productList.insert(
             0,
             ProductModel(
-                id: element.get('id'),
-                title: element.get('title'),
-                imageUrl: element.get('imageUrl'),
-                categoryName: element.get('categoryName'),
-                originalPrice: double.parse(element.get('originalPrice')),
-                offerPrice: element.get('offerPrice').toDouble(),
-                isOnOffer: element.get('isOnOffer'),
-                isPiece: element.get('isPiece')),
+              id: element.get('id'),
+              title: element.get('title'),
+              imageUrl: element.get('imageUrl'),
+              categoryName: element.get('categoryName'),
+              originalPrice: double.parse(element.get('originalPrice')),
+              offerPrice: element.get('offerPrice').toDouble(),
+              isOnOffer: element.get('isOnOffer'),
+              isPiece: element.get('isPiece'),
+            ),
           );
         }
       });
@@ -38,11 +44,6 @@ class ProductController with ChangeNotifier {
       GlobalServices.instance.errorDailogue(context, error.toString());
     }
     notifyListeners();
-  }
-
-  //* to get the product list
-  List<ProductModel> get getProductList {
-    return _productList;
   }
 
   //* to get offer product list

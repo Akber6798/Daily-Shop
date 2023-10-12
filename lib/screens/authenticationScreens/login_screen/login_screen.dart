@@ -35,11 +35,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> login() async {
     final isValid = formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() {
-      isLoading = true;
-    });
     if (isValid) {
       formKey.currentState!.save();
+      setState(() {
+        isLoading = true;
+      });
       try {
         await authenticationInstance.signInWithEmailAndPassword(
             email: emailController.text.toLowerCase().trim(),

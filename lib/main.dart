@@ -2,6 +2,7 @@ import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/consts/theme_style.dart';
 import 'package:daily_shop/controllers/bottom_navigation_controller.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
+import 'package:daily_shop/controllers/order_controller.dart';
 import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/controllers/theme_controller.dart';
 import 'package:daily_shop/controllers/viewed_recently_controller.dart';
@@ -74,6 +75,7 @@ class _MyAppState extends State<MyApp> {
             ChangeNotifierProvider(create: (_) => CartController()),
             ChangeNotifierProvider(create: (_) => WishlistController()),
             ChangeNotifierProvider(create: (_) => ViewedRecentlyController()),
+            ChangeNotifierProvider(create: (_) => OrderController()),
           ],
           child: Consumer<ThemeController>(
             builder: (context, newTheme, child) {

@@ -37,11 +37,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void signUp() async {
     final isValid = formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() {
-      isLoading = true;
-    });
     if (isValid) {
       formKey.currentState!.save();
+      setState(() {
+        isLoading = true;
+      });
       try {
         await authenticationInstance.createUserWithEmailAndPassword(
             email: emailController.text.toLowerCase().trim(),
@@ -49,6 +49,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         //* store details to firestore
         final User? user = authenticationInstance.currentUser;
         final userId = user!.uid;
+        user.updateDisplayName(nameController.text);
+        user.reload();
         await FirebaseFirestore.instance
             .collection("userDetails")
             .doc(userId)

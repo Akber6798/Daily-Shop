@@ -4,6 +4,7 @@ import 'package:daily_shop/commonwidgets/bottom_navigation.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
+import 'package:daily_shop/controllers/order_controller.dart';
 import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/controllers/wishlist_controller.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
@@ -31,15 +32,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
           Provider.of<CartController>(context, listen: false);
       final wishlistController =
           Provider.of<WishlistController>(context, listen: false);
+      final orderController =
+          Provider.of<OrderController>(context, listen: false);
       final User? user = authenticationInstance.currentUser;
       if (user == null) {
         await productController.fetchProducts(context);
         await cartController.clearAllCartItems();
         await wishlistController.clearAllWishlistItems();
+        orderController.getOrdersList.clear();
       } else {
         await productController.fetchProducts(context);
         await cartController.fetchCartProducts(context: context);
         await wishlistController.fetchWishlistProducts(context: context);
+        await orderController.fetchOrders(context);
       }
 
       Navigator.pushReplacement(

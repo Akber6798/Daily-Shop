@@ -1,17 +1,25 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/empty_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
+import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
+import 'package:daily_shop/controllers/order_controller.dart';
 import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/screens/cartScreen/widget/cart_card_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:daily_shop/services/global_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -23,6 +31,7 @@ class CartScreen extends StatelessWidget {
     final cartProductList =
         cartController.getCartProductItems.values.toList().reversed.toList();
     final productController = Provider.of<ProductController>(context);
+    final orderController = Provider.of<OrderController>(context);
     double totalPrice = 0.0;
     cartController.getCartProductItems.forEach((key, value) {
       final currentProdcut = productController.findProductById(value.productId);
@@ -61,7 +70,7 @@ class CartScreen extends StatelessWidget {
       body: cartProductList.isEmpty
           ? const EmptyWidget(
               emptyAnimation: "assets/animations/empty_cart.json",
-              emptyTitle: "No products on your cart \n start shopping")
+              emptyTitle: "You didnot added any product to your cart")
           : Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Column(
@@ -77,7 +86,52 @@ class CartScreen extends StatelessWidget {
                             height: 40,
                             width: 100,
                             title: "Order Now",
-                            onPressedFunction: () {}),
+                            onPressedFunction: () async {
+                              User? user = authenticationInstance.currentUser;
+                              final orderId = const Uuid().v4();
+                              final productController =
+                                  Provider.of<ProductController>(context,
+                                      listen: false);
+                              cartController.getCartProductItems
+                                  .forEach((key, value) async {
+                                final currentProduct = productController
+                                    .findProductById(value.productId);
+                                try {
+                                  await FirebaseFirestore.instance
+                                      .collection('orders')
+                                      .doc(orderId)
+                                      .set({
+                                    'orderId': orderId,
+                                    'userId': user!.uid,
+                                    'productId': value.productId,
+                                    'userName': user.displayName,
+                                    'quantity': value.quantity,
+                                    'price': (currentProduct.isOnOffer
+                                            ? currentProduct.offerPrice
+                                            : currentProduct.originalPrice) *
+                                        value.quantity,
+                                    'totalPrice': totalPrice,
+                                    'imageUrl': currentProduct.imageUrl,
+                                    'orderDate': Timestamp.now(),
+                                  });
+                                  await cartController.clearAllCartItems();
+                                  orderController.fetchOrders(context);
+                                  Fluttertoast.showToast(
+                                      msg: "Your order has been placed",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.grey.shade600,
+                                      textColor: whiteColor,
+                                      fontSize: 16.sp);
+                                } catch (error) {
+                                  GlobalServices.instance.errorDailogue(
+                                    context,
+                                    error.toString(),
+                                  );
+                                }
+                              });
+                            }),
                         FittedBox(
                           //! total price
                           child: Text(
