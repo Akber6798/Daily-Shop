@@ -18,7 +18,7 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-           orderList.isEmpty ? "Order" : "Order (${orderList.length})",
+          orderList.isEmpty ? "Order" : "Order (${orderList.length})",
           style: AppTextStyle.instance.mainTextStyle(
               fSize: 20.sp,
               fWeight: FontWeight.w600,
@@ -29,7 +29,7 @@ class OrderScreen extends StatelessWidget {
       body: orderList.isEmpty
           ? const EmptyWidget(
               emptyAnimation: "assets/animations/empty_order.json",
-              emptyTitle: "")
+              emptyTitle: "You didnot added any products to\nyour cart")
           : ListView.separated(
               itemCount: orderList.length,
               itemBuilder: ((context, index) {

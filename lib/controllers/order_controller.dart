@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_shop/models/order_model.dart';
 import 'package:daily_shop/services/global_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class OrderController with ChangeNotifier {
@@ -16,8 +17,13 @@ class OrderController with ChangeNotifier {
   //* get orders from database
   Future<void> fetchOrders(BuildContext context) async {
     try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      User? user = auth.currentUser;
+      final userId = user!.uid;
       await FirebaseFirestore.instance
           .collection('orders')
+          .where('userId', isEqualTo: userId)
+          .orderBy('orderDate', descending: false)
           .get()
           .then((QuerySnapshot ordersSnapshot) {
         _ordersList = [];

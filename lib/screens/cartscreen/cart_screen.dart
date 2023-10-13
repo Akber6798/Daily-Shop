@@ -70,7 +70,7 @@ class CartScreen extends StatelessWidget {
       body: cartProductList.isEmpty
           ? const EmptyWidget(
               emptyAnimation: "assets/animations/empty_cart.json",
-              emptyTitle: "You didnot added any product to your cart")
+              emptyTitle: "Your Cart is empty\n go buy your products")
           : Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Column(
@@ -88,7 +88,6 @@ class CartScreen extends StatelessWidget {
                             title: "Order Now",
                             onPressedFunction: () async {
                               User? user = authenticationInstance.currentUser;
-                              final orderId = const Uuid().v4();
                               final productController =
                                   Provider.of<ProductController>(context,
                                       listen: false);
@@ -97,6 +96,7 @@ class CartScreen extends StatelessWidget {
                                 final currentProduct = productController
                                     .findProductById(value.productId);
                                 try {
+                                  final orderId = const Uuid().v4();
                                   await FirebaseFirestore.instance
                                       .collection('orders')
                                       .doc(orderId)
