@@ -16,3 +16,21 @@ List<Map<String, dynamic>> categoryList = [
   {"catergoryTitle": "Spices", "categoryImage": "assets/images/spices.png"},
   {"catergoryTitle": "Grains", "categoryImage": "assets/images/grains.png"},
 ];
+
+
+//! welcome screen datas
+List welcomeScreenDatas = [
+  {
+    "subText": "Welcome to Daily Shop, Let’s shop!",
+    "imageUrl": "assets/welcomeImages/welcomeImage1.png"
+  },
+  {
+    "subText":
+        "We help people conect with store \naround City of Maradu",
+    "imageUrl": "assets/welcomeImages/welcomeImage2.png"
+  },
+  {
+    "subText": "We show the easy way to shop. \nJust stay at home with us",
+    "imageUrl": "assets/welcomeImages/welcomeImage3.png"
+  },
+];

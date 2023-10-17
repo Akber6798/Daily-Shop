@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
+
 import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/consts/theme_style.dart';
 import 'package:daily_shop/controllers/bottom_navigation_controller.dart';
@@ -22,6 +24,7 @@ import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart
 import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_recently_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/wishlist_screen.dart';
 import 'package:daily_shop/screens/profileScreen/profile_screen.dart';
+import 'package:daily_shop/screens/welcomeScreen/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -83,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                 theme: ThemeStyle.themeData(newTheme.darkTheme, context),
                 debugShowCheckedModeBanner: false,
                 home: authenticationInstance.currentUser == null
-                    ? const LoginScreen()
+                    ? const WelcomeScreen()
                     : const LoadingScreen(),
                 routes: {
                   LoginScreen.routeName: (context) => const LoginScreen(),

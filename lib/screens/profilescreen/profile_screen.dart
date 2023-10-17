@@ -13,6 +13,7 @@ import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart
 import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_recently_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/wishlist_screen.dart';
 import 'package:daily_shop/screens/profileScreen/widgets/list_tile_widget.dart';
+import 'package:daily_shop/screens/welcomeScreen/welcome_screen.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:daily_shop/services/global_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -204,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
+                                builder: (context) => const WelcomeScreen(),
                               ),
                             );
                           });

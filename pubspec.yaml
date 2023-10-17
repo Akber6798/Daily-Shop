@@ -56,10 +56,30 @@ dependencies:
   cloud_firestore: ^4.9.2  
   # others
   uuid: ^4.1.0
+  # payment
+  flutter_stripe: ^9.4.0
+  # networking
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.4
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#F3F4F8"
+  color_dark: "#121B22"
+  image_dark: "assets/icons/logo.png"
+  image: "assets/icons/logo.png"
+  andriod_gravity : center
+  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -85,6 +105,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/adBanner/
+    - assets/welcomeImages/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
