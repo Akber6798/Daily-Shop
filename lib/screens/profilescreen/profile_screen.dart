@@ -9,6 +9,7 @@ import 'package:daily_shop/controllers/theme_controller.dart';
 import 'package:daily_shop/screens/authenticationScreens/forget_password_screen/forget_password_screen.dart';
 import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
 import 'package:daily_shop/commonwidgets/loading_widget.dart';
+import 'package:daily_shop/screens/profileScreen/inner_screens/edit_profile_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_recently_screen.dart';
 import 'package:daily_shop/screens/profileScreen/inner_screens/wishlist_screen.dart';
@@ -36,7 +37,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final User? user = authenticationInstance.currentUser;
   String? userName;
   String? userEmail;
-  String? userAddress;
   bool isLoading = false;
 
   @override
@@ -67,8 +67,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       } else {
         userName = userData.get('name');
         userEmail = userData.get('email');
-        userAddress = userData.get('address');
-        addressController.text = userData.get('address');
       }
     } catch (error) {
       GlobalServices.instance.errorDailogue(context, error.toString());
@@ -121,10 +119,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 VerticalSpacingWidget(height: 20.h),
                 ListTileWidget(
-                  title: "Address",
+                  title: "Edit profile",
                   icon: IconlyLight.home,
                   onPressed: () {
-                    addAddress();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return EditProfileScreen();
+                        },
+                      ),
+                    );
                   },
                 ),
                 ListTileWidget(

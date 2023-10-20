@@ -26,14 +26,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController houseNameController = TextEditingController();
+  final TextEditingController streetNameConroller = TextEditingController();
+  final TextEditingController pincodeController = TextEditingController();
   final FocusNode emailFocusController = FocusNode();
   final FocusNode passwordFocusController = FocusNode();
-  final FocusNode addressFocusController = FocusNode();
+  final FocusNode phoneNumberFocusController = FocusNode();
+  final FocusNode houserNameFocusController = FocusNode();
+  final FocusNode streetNameFocusController = FocusNode();
+  final FocusNode pincodeFocusController = FocusNode();
   final formKey = GlobalKey<FormState>();
   ValueNotifier<bool> obsecurePassword = ValueNotifier(true);
   bool isLoading = false;
 
+  //! sign up
   void signUp() async {
     final isValid = formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
@@ -58,7 +65,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           'id': userId,
           'name': nameController.text,
           'email': emailController.text,
-          'address': addressController.text,
+          'phoneNumber': phoneNumberController.text,
+          'houseName': houseNameController.text,
+          'streetName': streetNameConroller.text,
+          'pincode': pincodeController.text,
           'userWishlist': [],
           'userCartList': [],
           'createdAt': Timestamp.now()
@@ -99,10 +109,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const VerticalSpacingWidget(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    //! welcome text
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -130,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ],
                 ),
-                const VerticalSpacingWidget(height: 30),
+                const VerticalSpacingWidget(height: 5),
                 Form(
                   key: formKey,
                   child: Column(
@@ -173,7 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-                      const VerticalSpacingWidget(height: 10),
+                      const VerticalSpacingWidget(height: 5),
                       //! email
                       TextFormField(
                         controller: emailController,
@@ -213,7 +223,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-                      const VerticalSpacingWidget(height: 10),
+                      const VerticalSpacingWidget(height: 5),
                       //! password
                       ValueListenableBuilder(
                         valueListenable: obsecurePassword,
@@ -231,7 +241,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 fWeight: FontWeight.w500,
                                 color: GetColorThemeService(context).textColor),
                             onEditingComplete: () => FocusScope.of(context)
-                                .requestFocus(addressFocusController),
+                                .requestFocus(phoneNumberFocusController),
                             validator: (value) {
                               if (value!.isEmpty || value.length < 7) {
                                 return "Password is missing";
@@ -278,17 +288,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           );
                         }),
                       ),
-                      const VerticalSpacingWidget(height: 10),
-                      //! address
+                      const VerticalSpacingWidget(height: 5),
+                      //! phone number
                       TextFormField(
-                        controller: addressController,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.done,
-                        focusNode: addressFocusController,
-                        maxLines: 2,
+                        controller: phoneNumberController,
+                        keyboardType: TextInputType.number,
+                        textInputAction: TextInputAction.next,
+                        focusNode: phoneNumberFocusController,
+                        onEditingComplete: () => FocusScope.of(context)
+                            .requestFocus(houserNameFocusController),
                         validator: (value) {
                           if (value!.isEmpty || value.length < 10) {
-                            return "Address is missing";
+                            return "Phone number is missing";
                           } else {
                             return null;
                           }
@@ -300,7 +311,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             fWeight: FontWeight.w500,
                             color: GetColorThemeService(context).textColor),
                         decoration: InputDecoration(
-                          hintText: "Address",
+                          hintText: "Phone Number",
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                                color: GetColorThemeService(context)
+                                    .headingTextColor,
+                                width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                                color: GetColorThemeService(context)
+                                    .headingTextColor,
+                                width: 1),
+                          ),
+                        ),
+                      ),
+                      const VerticalSpacingWidget(height: 5),
+                      //! house name
+                      TextFormField(
+                        controller: houseNameController,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        focusNode: houserNameFocusController,
+                        onEditingComplete: () => FocusScope.of(context)
+                            .requestFocus(streetNameFocusController),
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 10) {
+                            return "House name is missing";
+                          } else {
+                            return null;
+                          }
+                        },
+                        cursorColor:
+                            GetColorThemeService(context).headingTextColor,
+                        style: AppTextStyle().mainTextStyle(
+                            fSize: 15,
+                            fWeight: FontWeight.w500,
+                            color: GetColorThemeService(context).textColor),
+                        decoration: InputDecoration(
+                          hintText: "House Name",
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide(
@@ -320,7 +371,79 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-                const VerticalSpacingWidget(height: 70),
+                VerticalSpacingWidget(height: 5),
+                //! street name
+                TextFormField(
+                  controller: streetNameConroller,
+                  keyboardType: TextInputType.name,
+                  focusNode: streetNameFocusController,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: () => FocusScope.of(context)
+                      .requestFocus(pincodeFocusController),
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 10) {
+                      return "StreetName is missing";
+                    } else {
+                      return null;
+                    }
+                  },
+                  cursorColor: GetColorThemeService(context).headingTextColor,
+                  style: AppTextStyle().mainTextStyle(
+                      fSize: 15,
+                      fWeight: FontWeight.w500,
+                      color: GetColorThemeService(context).textColor),
+                  decoration: InputDecoration(
+                    hintText: "Street Name",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: GetColorThemeService(context).headingTextColor,
+                          width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: GetColorThemeService(context).headingTextColor,
+                          width: 1),
+                    ),
+                  ),
+                ),
+                VerticalSpacingWidget(height: 5),
+                //! pincode
+                TextFormField(
+                  controller: pincodeController,
+                  keyboardType: TextInputType.number,
+                  focusNode: pincodeFocusController,
+                  textInputAction: TextInputAction.done,
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 6) {
+                      return "Pincode is missing";
+                    } else {
+                      return null;
+                    }
+                  },
+                  cursorColor: GetColorThemeService(context).headingTextColor,
+                  style: AppTextStyle().mainTextStyle(
+                      fSize: 15,
+                      fWeight: FontWeight.w500,
+                      color: GetColorThemeService(context).textColor),
+                  decoration: InputDecoration(
+                    hintText: "Pincode",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: GetColorThemeService(context).headingTextColor,
+                          width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: GetColorThemeService(context).headingTextColor,
+                          width: 1),
+                    ),
+                  ),
+                ),
+                const VerticalSpacingWidget(height: 15),
                 //! signup
                 CommonButtonWidget(
                   height: 50,
@@ -330,7 +453,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     signUp();
                   },
                 ),
-                const VerticalSpacingWidget(height: 20),
+                const VerticalSpacingWidget(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -371,9 +494,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
-    addressController.dispose();
+    houseNameController.dispose();
+    streetNameConroller.dispose();
+    pincodeController.dispose();
     emailFocusController.dispose();
     passwordFocusController.dispose();
-    addressFocusController.dispose();
+    houserNameFocusController.dispose();
+    streetNameFocusController.dispose();
+    pincodeFocusController.dispose();
   }
 }

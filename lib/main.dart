@@ -1,29 +1,15 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
 import 'package:daily_shop/consts/firebase_consts.dart';
+import 'package:daily_shop/consts/routes.dart';
 import 'package:daily_shop/consts/theme_style.dart';
-import 'package:daily_shop/controllers/bottom_navigation_controller.dart';
 import 'package:daily_shop/controllers/cart_controller.dart';
 import 'package:daily_shop/controllers/order_controller.dart';
 import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/controllers/theme_controller.dart';
 import 'package:daily_shop/controllers/viewed_recently_controller.dart';
 import 'package:daily_shop/controllers/wishlist_controller.dart';
-import 'package:daily_shop/screens/authenticationScreens/forget_password_screen/forget_password_screen.dart';
-import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
-import 'package:daily_shop/screens/authenticationScreens/sign_up_screen/sign_up_screen.dart';
-import 'package:daily_shop/screens/cartScreen/cart_screen.dart';
-import 'package:daily_shop/screens/categoryScreen/category_screen.dart';
-import 'package:daily_shop/screens/categoryScreen/inner_screens/category_product_screen.dart';
-import 'package:daily_shop/screens/homeScreen/home_screen.dart';
-import 'package:daily_shop/screens/homescreen/inner_screens/all_products_screen.dart';
-import 'package:daily_shop/screens/homescreen/inner_screens/offer_all_products_screen.dart';
-import 'package:daily_shop/screens/homescreen/inner_screens/product_detail_screen.dart';
 import 'package:daily_shop/screens/loadingScreen/loading_screen.dart';
-import 'package:daily_shop/screens/profileScreen/inner_screens/order_screen.dart';
-import 'package:daily_shop/screens/profileScreen/inner_screens/viewed_recently_screen.dart';
-import 'package:daily_shop/screens/profileScreen/inner_screens/wishlist_screen.dart';
-import 'package:daily_shop/screens/profileScreen/profile_screen.dart';
 import 'package:daily_shop/screens/welcomeScreen/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +59,6 @@ class _MyAppState extends State<MyApp> {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => themeController),
-            ChangeNotifierProvider(create: (_) => BottomNavigationController()),
             ChangeNotifierProvider(create: (_) => ProductController()),
             ChangeNotifierProvider(create: (_) => CartController()),
             ChangeNotifierProvider(create: (_) => WishlistController()),
@@ -88,28 +73,7 @@ class _MyAppState extends State<MyApp> {
                 home: authenticationInstance.currentUser == null
                     ? const WelcomeScreen()
                     : const LoadingScreen(),
-                routes: {
-                  LoginScreen.routeName: (context) => const LoginScreen(),
-                  SignUpScreen.routeName: (context) => const SignUpScreen(),
-                  ForgetPasswordScreen.routeName: (context) =>
-                      const ForgetPasswordScreen(),
-                  HomeScreen.routeName: (context) => const HomeScreen(),
-                  AllProductsScreen.routeName: (context) =>
-                      const AllProductsScreen(),
-                  OfferAllProductsScreen.routeName: (context) =>
-                      const OfferAllProductsScreen(),
-                  ProductDetailScreen.routeName: (context) =>
-                      const ProductDetailScreen(),
-                  ProfileScreen.routeName: (context) => const ProfileScreen(),
-                  OrderScreen.routeName: (context) => const OrderScreen(),
-                  ViewedRecentlyScreen.routeName: (context) =>
-                      const ViewedRecentlyScreen(),
-                  WishlistScreen.routeName: (context) => const WishlistScreen(),
-                  CartScreen.routeName: (context) => const CartScreen(),
-                  CategoryScreen.routeName: (context) => const CategoryScreen(),
-                  CategoryProductScreen.routeName: (context) =>
-                      const CategoryProductScreen(),
-                },
+                routes: routes(),
               );
             },
           ),

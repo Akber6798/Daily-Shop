@@ -78,8 +78,7 @@ flutter_native_splash:
   color_dark: "#121B22"
   image_dark: "assets/icons/logo.png"
   image: "assets/icons/logo.png"
-  andriod_gravity : center
-  
+  andriod_gravity : center  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

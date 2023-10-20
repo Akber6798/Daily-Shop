@@ -1,3 +1,4 @@
+import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_data_details.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
@@ -46,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding:const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
                       const Spacer(),
@@ -58,32 +59,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                       const Spacer(flex: 2),
-                      SizedBox(
+                      CommonButtonWidget(
+                        height: 50,
                         width: double.infinity,
-                        height: 50.h,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              backgroundColor: GetColorThemeService(context)
-                                  .headingTextColor),
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            "Continue",
-                            style: AppTextStyle.instance.mainTextStyle(
-                                fSize: 19.sp,
-                                fWeight: FontWeight.w500,
-                                color: whiteColor),
-                          ),
-                        ),
+                        title: "Continue",
+                        onPressedFunction: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                     ],
@@ -101,7 +88,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   AnimatedContainer buildDotIndicators({required int index}) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      margin:  EdgeInsets.only(right: 5.w),
+      margin: EdgeInsets.only(right: 5.w),
       height: 8,
       width: currentPageIndex == index ? 20 : 8,
       decoration: BoxDecoration(
