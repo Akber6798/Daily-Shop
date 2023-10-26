@@ -7,17 +7,19 @@ class KGControllerWidget extends StatelessWidget {
       {super.key,
       required this.color,
       required this.clickedFunction,
-      required this.icon});
+      required this.icon, required this.height, required this.width});
 
   final Color color;
   final Function clickedFunction;
   final IconData icon;
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30.h,
-      width: 30.h,
+      height: height.h,
+      width: width.h,
       decoration:
           BoxDecoration(color: color, borderRadius: BorderRadius.circular(10)),
       child: InkWell(

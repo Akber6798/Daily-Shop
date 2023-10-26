@@ -1,7 +1,5 @@
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
-import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_data_details.dart';
-import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
 import 'package:daily_shop/screens/welcomeScreen/widget/welcome_screen_content_widget.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
