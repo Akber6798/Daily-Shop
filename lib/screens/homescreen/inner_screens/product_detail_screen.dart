@@ -164,6 +164,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   const EdgeInsets.symmetric(horizontal: 5),
                               //! less
                               child: KGControllerWidget(
+                                height: 30.h,
+                                width: 40.w,
                                   color: redColor,
                                   clickedFunction: () {
                                     if (quantityController.text == "1") {
@@ -215,6 +217,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   const EdgeInsets.symmetric(horizontal: 5),
                               //! add
                               child: KGControllerWidget(
+                                height: 30.h,
+                                width: 40.w,
                                   color: greenColor,
                                   clickedFunction: () {
                                     setState(() {

@@ -94,6 +94,8 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: KGControllerWidget(
+                              height: 30.h,
+                              width: 40.w,
                               color: redColor,
                               clickedFunction: () {
                                 if (quantityController.text == "1") {
@@ -151,6 +153,8 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: KGControllerWidget(
+                              height: 30.h,
+                              width: 40.w,
                               color: greenColor,
                               clickedFunction: () {
                                 cartController
