@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryScreen extends StatelessWidget {
   static const routeName = '/category';
- const CategoryScreen({super.key});
+  const CategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +23,15 @@ class CategoryScreen extends StatelessWidget {
             children: [
               const VerticalSpacingWidget(height: 15),
               GridView.builder(
-                //! category card
+                  //! category card
                   itemCount: categoryList.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 7,
-                      mainAxisSpacing: 7,
-                      childAspectRatio: .79),
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: .73),
                   itemBuilder: (context, index) {
                     return CategoryCardWidget(
                       image: categoryList[index]["categoryImage"],

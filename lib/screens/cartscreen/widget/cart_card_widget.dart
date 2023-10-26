@@ -89,33 +89,30 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                   child: Row(
                     children: [
                       //! less
-                      Flexible(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: KGControllerWidget(
-                              height: 30.h,
-                              width: 40.w,
-                              color: redColor,
-                              clickedFunction: () {
-                                if (quantityController.text == "1") {
-                                  return;
-                                } else {
-                                  cartController
-                                      .reduceQuantityByOne(cartModel.productId);
-                                  setState(() {
-                                    quantityController.text =
-                                        (int.parse(quantityController.text) - 1)
-                                            .toString();
-                                  });
-                                }
-                              },
-                              icon: Icons.remove),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: KGControllerWidget(
+                            height: 25.h,
+                            width: 25.w,
+                            color: redColor,
+                            clickedFunction: () {
+                              if (quantityController.text == "1") {
+                                return;
+                              } else {
+                                cartController
+                                    .reduceQuantityByOne(cartModel.productId);
+                                setState(() {
+                                  quantityController.text =
+                                      (int.parse(quantityController.text) - 1)
+                                          .toString();
+                                });
+                              }
+                            },
+                            icon: Icons.remove),
                       ),
                       //! kg
                       Flexible(
-                        flex: 2,
+                        flex: 3,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 8.h, horizontal: 4.w),
@@ -148,25 +145,22 @@ class _CartCardWidgetState extends State<CartCardWidget> {
                         ),
                       ),
                       //! add
-                      Flexible(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: KGControllerWidget(
-                              height: 30.h,
-                              width: 40.w,
-                              color: greenColor,
-                              clickedFunction: () {
-                                cartController
-                                    .increaseQuantityByOne(cartModel.productId);
-                                setState(() {
-                                  quantityController.text =
-                                      (int.parse(quantityController.text) + 1)
-                                          .toString();
-                                });
-                              },
-                              icon: Icons.add),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: KGControllerWidget(
+                            height: 25.h,
+                            width: 25.w,
+                            color: greenColor,
+                            clickedFunction: () {
+                              cartController
+                                  .increaseQuantityByOne(cartModel.productId);
+                              setState(() {
+                                quantityController.text =
+                                    (int.parse(quantityController.text) + 1)
+                                        .toString();
+                              });
+                            },
+                            icon: Icons.add),
                       )
                     ],
                   ),

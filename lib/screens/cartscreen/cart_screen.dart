@@ -17,10 +17,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
-
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -85,7 +83,7 @@ class CartScreen extends StatelessWidget {
                         //! for order
                         CommonButtonWidget(
                             height: 40,
-                            width: 100,
+                            width: 130,
                             title: "Order Now",
                             onPressedFunction: () async {
                               User? user = authenticationInstance.currentUser;
@@ -117,14 +115,8 @@ class CartScreen extends StatelessWidget {
                                   });
                                   await cartController.clearAllCartItems();
                                   orderController.fetchOrders(context);
-                                  Fluttertoast.showToast(
-                                      msg: "Your order has been placed",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.grey.shade600,
-                                      textColor: whiteColor,
-                                      fontSize: 16.sp);
+                                  GlobalServices.instance.showToastMessage(
+                                      "Your order has been placed");
                                 } catch (error) {
                                   GlobalServices.instance.errorDailogue(
                                     context,

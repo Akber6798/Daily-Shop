@@ -16,41 +16,30 @@ class CategoryCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, CategoryProductScreen.routeName,arguments: title);
+        Navigator.pushNamed(context, CategoryProductScreen.routeName,
+            arguments: title);
       },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).cardColor,
-          border: Border.all(
-              width: .5.w,
-              color: GetColorThemeService(context).headingTextColor),
-        ),
-        child: Column(
-          children: [
-          const  VerticalSpacingWidget(height: 5),
-          //! image
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 120.h,
-                width: 120.w,
-                child: Image(
-                  image: AssetImage(image),
-                  fit: BoxFit.fill,
-                ),
-              ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 45.sp,
+            backgroundColor: Colors.green[100],
+            backgroundImage: AssetImage(
+              image,
             ),
-            //! title
-            Text(
-              title,
-              style: AppTextStyle.instance.mainTextStyle(
-                  fSize: 20,
-                  fWeight: FontWeight.w600,
-                  color: GetColorThemeService(context).headingTextColor),
-            )
-          ],
-        ),
+          ),
+          VerticalSpacingWidget(height: 10),
+          Text(
+            title,
+            style: AppTextStyle.instance.mainTextStyle(
+                fSize: 14.5,
+                fWeight: FontWeight.w500,
+                color: GetColorThemeService(context).headingTextColor),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+          )
+        ],
       ),
     );
   }

@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daily_shop/CommonWidgets/bottom_navigation.dart';
 import 'package:daily_shop/commonwidgets/loading_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
@@ -11,9 +12,9 @@ import 'package:daily_shop/services/global_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class EditProfileScreen extends StatefulWidget {
+  static const routeName = '/editProfile';
   const EditProfileScreen({super.key});
 
   @override
@@ -89,14 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         'streetName': editStreetNameConroller.text,
         'pincode': editPincodeController.text
       });
-      Fluttertoast.showToast(
-          msg: "Updated successfully",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.grey.shade600,
-          textColor: whiteColor,
-          fontSize: 16.sp);
+      GlobalServices.instance.showToastMessage("Updated successfully");
       setState(() {
         isCircleLoading = false;
       });
@@ -128,6 +122,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Edit Profile"),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BottomNavigation(),
+                ),
+              );
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(

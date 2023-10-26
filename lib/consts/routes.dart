@@ -1,3 +1,4 @@
+import 'package:daily_shop/Screens/ProfileScreen/inner_screens/edit_profile_screen.dart';
 import 'package:daily_shop/screens/authenticationScreens/forget_password_screen/forget_password_screen.dart';
 import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
 import 'package:daily_shop/screens/authenticationScreens/sign_up_screen/sign_up_screen.dart';
@@ -31,5 +32,6 @@ Map<String, WidgetBuilder> routes() {
     CartScreen.routeName: (context) => const CartScreen(),
     CategoryScreen.routeName: (context) => const CategoryScreen(),
     CategoryProductScreen.routeName: (context) => const CategoryProductScreen(),
+    EditProfileScreen.routeName: (context) => const EditProfileScreen(),
   };
 }

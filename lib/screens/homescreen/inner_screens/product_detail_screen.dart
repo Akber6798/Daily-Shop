@@ -164,8 +164,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   const EdgeInsets.symmetric(horizontal: 5),
                               //! less
                               child: KGControllerWidget(
-                                height: 30.h,
-                                width: 40.w,
+                                height: 40.h,
+                                width: 50.w,
                                   color: redColor,
                                   clickedFunction: () {
                                     if (quantityController.text == "1") {
@@ -203,7 +203,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     .headingTextColor,
                                 keyboardType: TextInputType.number,
                                 style: AppTextStyle().mainTextStyle(
-                                    fSize: 15,
+                                    fSize: 20,
                                     fWeight: FontWeight.w500,
                                     color: GetColorThemeService(context)
                                         .textColor),
@@ -217,8 +217,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   const EdgeInsets.symmetric(horizontal: 5),
                               //! add
                               child: KGControllerWidget(
-                                height: 30.h,
-                                width: 40.w,
+                                height: 40.h,
+                                width: 50.w,
                                   color: greenColor,
                                   clickedFunction: () {
                                     setState(() {
@@ -279,7 +279,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         //! add to cart
                         CommonButtonWidget(
                           height: 40,
-                          width: 100,
+                          width: 130,
                           title: isInCart ? "In cart" : "Add to cart",
                           onPressedFunction: isInCart
                               ? null

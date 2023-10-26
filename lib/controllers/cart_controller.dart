@@ -1,14 +1,11 @@
 // ignore_for_file: prefer_final_fields, unnecessary_null_comparison, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/firebase_consts.dart';
 import 'package:daily_shop/models/cart_model.dart';
 import 'package:daily_shop/services/global_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
 
 class CartController with ChangeNotifier {
@@ -33,14 +30,8 @@ class CartController with ChangeNotifier {
           {'cartId': cartId, 'productId': productId, 'quantity': quantity}
         ])
       });
-      Fluttertoast.showToast(
-          msg: "Item has been added to your cart",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.grey.shade600,
-          textColor: whiteColor,
-          fontSize: 16.sp);
+      GlobalServices.instance
+          .showToastMessage("Item has been added to your cart");
     } catch (error) {
       GlobalServices.instance.errorDailogue(context, error.toString());
     }
@@ -101,8 +92,6 @@ class CartController with ChangeNotifier {
     _cartProductItems.remove(productId);
     notifyListeners();
   }
-
-
 
   Future<void> clearAllCartItems() async {
     final User? user = authenticationInstance.currentUser;

@@ -122,14 +122,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: "Edit profile",
                   icon: IconlyLight.home,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return EditProfileScreen();
-                        },
-                      ),
-                    );
+                     GlobalServices.instance.navigateTo(
+                        context: context,
+                        routeName: EditProfileScreen.routeName);
                   },
                 ),
                 ListTileWidget(
