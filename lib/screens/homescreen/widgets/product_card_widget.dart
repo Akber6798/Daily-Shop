@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/horizontal_spacing_widget.dart';
 import 'package:daily_shop/commonwidgets/price_widget.dart';
@@ -64,11 +65,15 @@ class _ProductCardWidegtState extends State<ProductCardWidegt> {
               const VerticalSpacingWidget(height: 10),
               Center(
                 //! image
-                child: FancyShimmerImage(
-                  imageUrl: productModel.imageUrl,
-                  height: 70.h,
-                  width: 100.w,
-                  boxFit: BoxFit.fill,
+                child: FadedScaleAnimation(
+                  scaleDuration: const Duration(milliseconds: 400),
+                  fadeDuration: const Duration(milliseconds: 400),
+                  child: FancyShimmerImage(
+                    imageUrl: productModel.imageUrl,
+                    height: 70.h,
+                    width: 100.w,
+                    boxFit: BoxFit.fill,
+                  ),
                 ),
               ),
               const VerticalSpacingWidget(height: 8),

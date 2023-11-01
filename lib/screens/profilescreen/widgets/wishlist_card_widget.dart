@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
@@ -54,11 +55,15 @@ class WishlistCardWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FancyShimmerImage(
-                    imageUrl: currentProduct.imageUrl,
-                    height: 70.h,
-                    width: 100.w,
-                    boxFit: BoxFit.fill,
+                  FadedScaleAnimation(
+                    scaleDuration: const Duration(milliseconds: 400),
+                    fadeDuration: const Duration(milliseconds: 400),
+                    child: FancyShimmerImage(
+                      imageUrl: currentProduct.imageUrl,
+                      height: 70.h,
+                      width: 100.w,
+                      boxFit: BoxFit.fill,
+                    ),
                   ),
                   Column(
                     children: [

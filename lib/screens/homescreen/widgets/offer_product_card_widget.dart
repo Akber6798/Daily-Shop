@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/price_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
@@ -67,11 +68,15 @@ class OfferProductCardWidget extends StatelessWidget {
                 ),
                 Center(
                   //! image
-                  child: FancyShimmerImage(
-                    imageUrl: productModel.imageUrl,
-                    height: 70.h,
-                    width: 100.w,
-                    boxFit: BoxFit.fill,
+                  child: FadedScaleAnimation(
+                    scaleDuration: const Duration(milliseconds: 400),
+                    fadeDuration: const Duration(milliseconds: 400),
+                    child: FancyShimmerImage(
+                      imageUrl: productModel.imageUrl,
+                      height: 70.h,
+                      width: 100.w,
+                      boxFit: BoxFit.fill,
+                    ),
                   ),
                 ),
                 const VerticalSpacingWidget(height: 5),
@@ -102,17 +107,18 @@ class OfferProductCardWidget extends StatelessWidget {
                     Flexible(
                       flex: 1,
                       child: IconButton(
-                        onPressed: ()async {
+                        onPressed: () async {
                           if (user == null) {
                             GlobalServices.instance.errorDailogue(
                                 context, "No user found \nPlease login..");
                             return;
                           }
-                        await cartController.addProductToCart(
+                          await cartController.addProductToCart(
                               productId: productModel.id,
                               quantity: 1,
                               context: context);
-                         await cartController.fetchCartProducts(context: context);     
+                          await cartController.fetchCartProducts(
+                              context: context);
                         },
                         icon: Icon(
                           isInCart ? IconlyBold.bag : IconlyLight.bag,

@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/commonwidgets/horizontal_spacing_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
@@ -44,11 +45,15 @@ class ViewedRecentlyCardWidget extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: FancyShimmerImage(
-                imageUrl: currentProduct.imageUrl,
-                height: 60.h,
-                width: 90.w,
-                boxFit: BoxFit.fill,
+              child: FadedScaleAnimation(
+                scaleDuration: const Duration(milliseconds: 400),
+                fadeDuration: const Duration(milliseconds: 400),
+                child: FancyShimmerImage(
+                  imageUrl: currentProduct.imageUrl,
+                  height: 60.h,
+                  width: 90.w,
+                  boxFit: BoxFit.fill,
+                ),
               ),
             ),
             const HorizontalSpacingWidget(width: 10),

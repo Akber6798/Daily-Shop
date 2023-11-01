@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/services/get_theme_color_service.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class WelcomeScreenContentWidget extends StatelessWidget {
         Text(
           subText,
           textAlign: TextAlign.center,
-           style: AppTextStyle.instance.mainTextStyle(
+          style: AppTextStyle.instance.mainTextStyle(
               fSize: 15.sp,
               fWeight: FontWeight.w400,
               color: GetColorThemeService(context).textColor),
@@ -33,10 +34,14 @@ class WelcomeScreenContentWidget extends StatelessWidget {
         const Spacer(
           flex: 2,
         ),
-        Image.asset(
-          imageUrl,
-          height: 280.h,
-          width: 280.w,
+        FadedScaleAnimation(
+          scaleDuration: const Duration(milliseconds: 400),
+          fadeDuration: const Duration(milliseconds: 400),
+          child: Image.asset(
+            imageUrl,
+            height: 280.h,
+            width: 280.w,
+          ),
         )
       ],
     );

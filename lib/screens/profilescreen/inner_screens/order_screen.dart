@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:daily_shop/commonwidgets/empty_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/controllers/order_controller.dart';
@@ -30,19 +31,24 @@ class OrderScreen extends StatelessWidget {
           ? const EmptyWidget(
               emptyAnimation: "assets/animations/empty_order.json",
               emptyTitle: "You didnot added any products to\nyour cart")
-          : ListView.separated(
-              itemCount: orderList.length,
-              itemBuilder: ((context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: ChangeNotifierProvider.value(
-                    value: orderList[index],
-                    child: const OrderCardWidget(),
-                  ),
-                );
-              }),
-              separatorBuilder: ((context, index) => Divider(
-                  color: GetColorThemeService(context).headingTextColor)),
+          : FadedSlideAnimation(
+              beginOffset: const Offset(0, 0.3),
+              endOffset: const Offset(0, 0),
+              slideCurve: Curves.linearToEaseOut,
+              child: ListView.separated(
+                itemCount: orderList.length,
+                itemBuilder: ((context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: ChangeNotifierProvider.value(
+                      value: orderList[index],
+                      child: const OrderCardWidget(),
+                    ),
+                  );
+                }),
+                separatorBuilder: ((context, index) => Divider(
+                    color: GetColorThemeService(context).headingTextColor)),
+              ),
             ),
     );
   }

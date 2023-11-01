@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/loading_widget.dart';
@@ -104,383 +106,399 @@ class _SignUpScreenState extends State<SignUpScreen> {
       isLoading: isLoading,
       child: Scaffold(
         appBar: AppBar(),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.w),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    //! welcome text
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Welcome to",
-                          style: AppTextStyle.instance.mainTextStyle(
-                              fSize: 18,
-                              fWeight: FontWeight.w400,
-                              color: GetColorThemeService(context).textColor),
-                        ),
-                        Text(
-                          "Daily Shop",
-                          style: AppTextStyle.instance.mainTextStyle(
-                              fSize: 25,
-                              fWeight: FontWeight.w500,
-                              color: GetColorThemeService(context)
-                                  .headingTextColor),
-                        ),
-                      ],
-                    ),
-                    Image(
-                      height: 50.h,
-                      width: 50.w,
-                      image: const AssetImage("assets/icons/logo.png"),
-                    ),
-                  ],
-                ),
-                const VerticalSpacingWidget(height: 5),
-                Form(
-                  key: formKey,
-                  child: Column(
+        body: FadedSlideAnimation(
+          beginOffset: const Offset(0, 0.3),
+          endOffset: const Offset(0, 0),
+          slideCurve: Curves.linearToEaseOut,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      //! full name
-                      TextFormField(
-                        controller: nameController,
-                        keyboardType: TextInputType.name,
-                        textInputAction: TextInputAction.next,
-                        onEditingComplete: () => FocusScope.of(context)
-                            .requestFocus(emailFocusController),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Name is missing";
-                          } else {
-                            return null;
-                          }
-                        },
-                        cursorColor:
-                            GetColorThemeService(context).headingTextColor,
-                        style: AppTextStyle().mainTextStyle(
-                            fSize: 15,
-                            fWeight: FontWeight.w500,
-                            color: GetColorThemeService(context).textColor),
-                        decoration: InputDecoration(
-                          hintText: "Full Name",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: GetColorThemeService(context)
-                                    .headingTextColor,
-                                width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: GetColorThemeService(context)
-                                    .headingTextColor,
-                                width: 1),
-                          ),
-                        ),
-                      ),
-                      const VerticalSpacingWidget(height: 5),
-                      //! email
-                      TextFormField(
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        onEditingComplete: () => FocusScope.of(context)
-                            .requestFocus(passwordFocusController),
-                        focusNode: emailFocusController,
-                        validator: (value) {
-                          if (value!.isEmpty || !value.contains("@")) {
-                            return "Email is missing";
-                          } else {
-                            return null;
-                          }
-                        },
-                        cursorColor:
-                            GetColorThemeService(context).headingTextColor,
-                        style: AppTextStyle().mainTextStyle(
-                            fSize: 15,
-                            fWeight: FontWeight.w500,
-                            color: GetColorThemeService(context).textColor),
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: GetColorThemeService(context)
-                                    .headingTextColor,
-                                width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: GetColorThemeService(context)
-                                    .headingTextColor,
-                                width: 1),
-                          ),
-                        ),
-                      ),
-                      const VerticalSpacingWidget(height: 5),
-                      //! password
-                      ValueListenableBuilder(
-                        valueListenable: obsecurePassword,
-                        builder: ((context, value, child) {
-                          return TextFormField(
-                            controller: passwordController,
-                            keyboardType: TextInputType.visiblePassword,
-                            focusNode: passwordFocusController,
-                            obscureText: value,
-                            textInputAction: TextInputAction.next,
-                            cursorColor:
-                                GetColorThemeService(context).headingTextColor,
-                            style: AppTextStyle().mainTextStyle(
-                                fSize: 15,
-                                fWeight: FontWeight.w500,
+                      //! welcome text
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Welcome to",
+                            style: AppTextStyle.instance.mainTextStyle(
+                                fSize: 18,
+                                fWeight: FontWeight.w400,
                                 color: GetColorThemeService(context).textColor),
-                            onEditingComplete: () => FocusScope.of(context)
-                                .requestFocus(phoneNumberFocusController),
-                            validator: (value) {
-                              if (value!.isEmpty || value.length < 7) {
-                                return "Password is missing";
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: InputDecoration(
-                              suffixIcon: obsecurePassword.value
-                                  ? IconButton(
-                                      onPressed: () {
-                                        obsecurePassword.value =
-                                            !obsecurePassword.value;
-                                      },
-                                      icon: Icon(Icons.visibility_off_outlined,
-                                          color: GetColorThemeService(context)
-                                              .headingTextColor),
-                                    )
-                                  : IconButton(
-                                      onPressed: () {
-                                        obsecurePassword.value =
-                                            !obsecurePassword.value;
-                                      },
-                                      icon: Icon(Icons.visibility_outlined,
-                                          color: GetColorThemeService(context)
-                                              .headingTextColor),
-                                    ),
-                              hintText: "Password",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: GetColorThemeService(context)
-                                        .headingTextColor,
-                                    width: 1),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: GetColorThemeService(context)
-                                        .headingTextColor,
-                                    width: 1),
-                              ),
-                            ),
-                          );
-                        }),
+                          ),
+                          Text(
+                            "Daily Shop",
+                            style: AppTextStyle.instance.mainTextStyle(
+                                fSize: 25,
+                                fWeight: FontWeight.w500,
+                                color: GetColorThemeService(context)
+                                    .headingTextColor),
+                          ),
+                        ],
                       ),
-                      const VerticalSpacingWidget(height: 5),
-                      //! phone number
-                      TextFormField(
-                        controller: phoneNumberController,
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.next,
-                        focusNode: phoneNumberFocusController,
-                        onEditingComplete: () => FocusScope.of(context)
-                            .requestFocus(houserNameFocusController),
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 10) {
-                            return "Phone number is missing";
-                          } else {
-                            return null;
-                          }
-                        },
-                        cursorColor:
-                            GetColorThemeService(context).headingTextColor,
-                        style: AppTextStyle().mainTextStyle(
-                            fSize: 15,
-                            fWeight: FontWeight.w500,
-                            color: GetColorThemeService(context).textColor),
-                        decoration: InputDecoration(
-                          hintText: "Phone Number",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: GetColorThemeService(context)
-                                    .headingTextColor,
-                                width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: GetColorThemeService(context)
-                                    .headingTextColor,
-                                width: 1),
-                          ),
-                        ),
-                      ),
-                      const VerticalSpacingWidget(height: 5),
-                      //! house name
-                      TextFormField(
-                        controller: houseNameController,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        focusNode: houserNameFocusController,
-                        onEditingComplete: () => FocusScope.of(context)
-                            .requestFocus(streetNameFocusController),
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 10) {
-                            return "House name is missing";
-                          } else {
-                            return null;
-                          }
-                        },
-                        cursorColor:
-                            GetColorThemeService(context).headingTextColor,
-                        style: AppTextStyle().mainTextStyle(
-                            fSize: 15,
-                            fWeight: FontWeight.w500,
-                            color: GetColorThemeService(context).textColor),
-                        decoration: InputDecoration(
-                          hintText: "House Name",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: GetColorThemeService(context)
-                                    .headingTextColor,
-                                width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: GetColorThemeService(context)
-                                    .headingTextColor,
-                                width: 1),
-                          ),
+                      FadedScaleAnimation(
+                        scaleDuration: const Duration(milliseconds: 400),
+                        fadeDuration: const Duration(milliseconds: 400),
+                        child: Image(
+                          height: 50.h,
+                          width: 50.w,
+                          image: const AssetImage("assets/icons/logo.png"),
                         ),
                       ),
                     ],
                   ),
-                ),
-                VerticalSpacingWidget(height: 5),
-                //! street name
-                TextFormField(
-                  controller: streetNameConroller,
-                  keyboardType: TextInputType.name,
-                  focusNode: streetNameFocusController,
-                  textInputAction: TextInputAction.next,
-                  onEditingComplete: () => FocusScope.of(context)
-                      .requestFocus(pincodeFocusController),
-                  validator: (value) {
-                    if (value!.isEmpty || value.length < 10) {
-                      return "StreetName is missing";
-                    } else {
-                      return null;
-                    }
-                  },
-                  cursorColor: GetColorThemeService(context).headingTextColor,
-                  style: AppTextStyle().mainTextStyle(
-                      fSize: 15,
-                      fWeight: FontWeight.w500,
-                      color: GetColorThemeService(context).textColor),
-                  decoration: InputDecoration(
-                    hintText: "Street Name",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
+                  const VerticalSpacingWidget(height: 5),
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        //! full name
+                        TextFormField(
+                          controller: nameController,
+                          keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(emailFocusController),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Name is missing";
+                            } else {
+                              return null;
+                            }
+                          },
+                          cursorColor:
+                              GetColorThemeService(context).headingTextColor,
+                          style: AppTextStyle().mainTextStyle(
+                              fSize: 15,
+                              fWeight: FontWeight.w500,
+                              color: GetColorThemeService(context).textColor),
+                          decoration: InputDecoration(
+                            hintText: "Full Name",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  width: 1),
+                            ),
+                          ),
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                        //! email
+                        TextFormField(
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(passwordFocusController),
+                          focusNode: emailFocusController,
+                          validator: (value) {
+                            if (value!.isEmpty || !value.contains("@")) {
+                              return "Email is missing";
+                            } else {
+                              return null;
+                            }
+                          },
+                          cursorColor:
+                              GetColorThemeService(context).headingTextColor,
+                          style: AppTextStyle().mainTextStyle(
+                              fSize: 15,
+                              fWeight: FontWeight.w500,
+                              color: GetColorThemeService(context).textColor),
+                          decoration: InputDecoration(
+                            hintText: "Email",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  width: 1),
+                            ),
+                          ),
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                        //! password
+                        ValueListenableBuilder(
+                          valueListenable: obsecurePassword,
+                          builder: ((context, value, child) {
+                            return TextFormField(
+                              controller: passwordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              focusNode: passwordFocusController,
+                              obscureText: value,
+                              textInputAction: TextInputAction.next,
+                              cursorColor: GetColorThemeService(context)
+                                  .headingTextColor,
+                              style: AppTextStyle().mainTextStyle(
+                                  fSize: 15,
+                                  fWeight: FontWeight.w500,
+                                  color:
+                                      GetColorThemeService(context).textColor),
+                              onEditingComplete: () => FocusScope.of(context)
+                                  .requestFocus(phoneNumberFocusController),
+                              validator: (value) {
+                                if (value!.isEmpty || value.length < 7) {
+                                  return "Password is missing";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                suffixIcon: obsecurePassword.value
+                                    ? IconButton(
+                                        onPressed: () {
+                                          obsecurePassword.value =
+                                              !obsecurePassword.value;
+                                        },
+                                        icon: Icon(
+                                            Icons.visibility_off_outlined,
+                                            color: GetColorThemeService(context)
+                                                .headingTextColor),
+                                      )
+                                    : IconButton(
+                                        onPressed: () {
+                                          obsecurePassword.value =
+                                              !obsecurePassword.value;
+                                        },
+                                        icon: Icon(Icons.visibility_outlined,
+                                            color: GetColorThemeService(context)
+                                                .headingTextColor),
+                                      ),
+                                hintText: "Password",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide(
+                                      color: GetColorThemeService(context)
+                                          .headingTextColor,
+                                      width: 1),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide(
+                                      color: GetColorThemeService(context)
+                                          .headingTextColor,
+                                      width: 1),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                        //! phone number
+                        TextFormField(
+                          controller: phoneNumberController,
+                          keyboardType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                          focusNode: phoneNumberFocusController,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(houserNameFocusController),
+                          validator: (value) {
+                            if (value!.isEmpty || value.length < 10) {
+                              return "Phone number is missing";
+                            } else {
+                              return null;
+                            }
+                          },
+                          cursorColor:
+                              GetColorThemeService(context).headingTextColor,
+                          style: AppTextStyle().mainTextStyle(
+                              fSize: 15,
+                              fWeight: FontWeight.w500,
+                              color: GetColorThemeService(context).textColor),
+                          decoration: InputDecoration(
+                            hintText: "Phone Number",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  width: 1),
+                            ),
+                          ),
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                        //! house name
+                        TextFormField(
+                          controller: houseNameController,
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          focusNode: houserNameFocusController,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(streetNameFocusController),
+                          validator: (value) {
+                            if (value!.isEmpty || value.length < 10) {
+                              return "House name is missing";
+                            } else {
+                              return null;
+                            }
+                          },
+                          cursorColor:
+                              GetColorThemeService(context).headingTextColor,
+                          style: AppTextStyle().mainTextStyle(
+                              fSize: 15,
+                              fWeight: FontWeight.w500,
+                              color: GetColorThemeService(context).textColor),
+                          decoration: InputDecoration(
+                            hintText: "House Name",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  width: 1),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                VerticalSpacingWidget(height: 5),
-                //! pincode
-                TextFormField(
-                  controller: pincodeController,
-                  keyboardType: TextInputType.number,
-                  focusNode: pincodeFocusController,
-                  textInputAction: TextInputAction.done,
-                  validator: (value) {
-                    if (value!.isEmpty || value.length < 6) {
-                      return "Pincode is missing";
-                    } else {
-                      return null;
-                    }
-                  },
-                  cursorColor: GetColorThemeService(context).headingTextColor,
-                  style: AppTextStyle().mainTextStyle(
-                      fSize: 15,
-                      fWeight: FontWeight.w500,
-                      color: GetColorThemeService(context).textColor),
-                  decoration: InputDecoration(
-                    hintText: "Pincode",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                  ),
-                ),
-                const VerticalSpacingWidget(height: 15),
-                //! signup
-                CommonButtonWidget(
-                  height: 50,
-                  width: double.infinity,
-                  title: "SignUp",
-                  onPressedFunction: () {
-                    signUp();
-                  },
-                ),
-                const VerticalSpacingWidget(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account? ",
-                      style: AppTextStyle.instance.mainTextStyle(
-                          fSize: 15,
-                          fWeight: FontWeight.w400,
-                          color: GetColorThemeService(context).textColor),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        GlobalServices.instance.navigateTo(
-                            context: context, routeName: LoginScreen.routeName);
-                      },
-                      child: Text(
-                        "Login",
-                        style: AppTextStyle.instance.mainTextStyle(
-                            fSize: 16,
-                            fWeight: FontWeight.w500,
+                  VerticalSpacingWidget(height: 5),
+                  //! street name
+                  TextFormField(
+                    controller: streetNameConroller,
+                    keyboardType: TextInputType.name,
+                    focusNode: streetNameFocusController,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: () => FocusScope.of(context)
+                        .requestFocus(pincodeFocusController),
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 10) {
+                        return "StreetName is missing";
+                      } else {
+                        return null;
+                      }
+                    },
+                    cursorColor: GetColorThemeService(context).headingTextColor,
+                    style: AppTextStyle().mainTextStyle(
+                        fSize: 15,
+                        fWeight: FontWeight.w500,
+                        color: GetColorThemeService(context).textColor),
+                    decoration: InputDecoration(
+                      hintText: "Street Name",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
                             color:
-                                GetColorThemeService(context).headingTextColor),
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
                       ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  VerticalSpacingWidget(height: 5),
+                  //! pincode
+                  TextFormField(
+                    controller: pincodeController,
+                    keyboardType: TextInputType.number,
+                    focusNode: pincodeFocusController,
+                    textInputAction: TextInputAction.done,
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 6) {
+                        return "Pincode is missing";
+                      } else {
+                        return null;
+                      }
+                    },
+                    cursorColor: GetColorThemeService(context).headingTextColor,
+                    style: AppTextStyle().mainTextStyle(
+                        fSize: 15,
+                        fWeight: FontWeight.w500,
+                        color: GetColorThemeService(context).textColor),
+                    decoration: InputDecoration(
+                      hintText: "Pincode",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                    ),
+                  ),
+                  const VerticalSpacingWidget(height: 15),
+                  //! signup
+                  CommonButtonWidget(
+                    height: 50,
+                    width: double.infinity,
+                    title: "SignUp",
+                    onPressedFunction: () {
+                      signUp();
+                    },
+                  ),
+                  const VerticalSpacingWidget(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account? ",
+                        style: AppTextStyle.instance.mainTextStyle(
+                            fSize: 15,
+                            fWeight: FontWeight.w400,
+                            color: GetColorThemeService(context).textColor),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          GlobalServices.instance.navigateTo(
+                              context: context,
+                              routeName: LoginScreen.routeName);
+                        },
+                        child: Text(
+                          "Login",
+                          style: AppTextStyle.instance.mainTextStyle(
+                              fSize: 16,
+                              fWeight: FontWeight.w500,
+                              color: GetColorThemeService(context)
+                                  .headingTextColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

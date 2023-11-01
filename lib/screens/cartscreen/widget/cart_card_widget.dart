@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/kg_controller_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
@@ -64,11 +65,15 @@ class _CartCardWidgetState extends State<CartCardWidget> {
             //! image
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: FancyShimmerImage(
-                imageUrl: currentProduct.imageUrl,
-                height: 60.h,
-                width: 90.w,
-                boxFit: BoxFit.fill,
+              child: FadedScaleAnimation(
+                scaleDuration: const Duration(milliseconds: 400),
+                fadeDuration: const Duration(milliseconds: 400),
+                child: FancyShimmerImage(
+                  imageUrl: currentProduct.imageUrl,
+                  height: 60.h,
+                  width: 90.w,
+                  boxFit: BoxFit.fill,
+                ),
               ),
             ),
             Column(

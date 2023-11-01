@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_shop/CommonWidgets/bottom_navigation.dart';
 import 'package:daily_shop/commonwidgets/loading_widget.dart';
@@ -134,168 +135,183 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             icon: Icon(Icons.arrow_back),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: Column(
-              children: [
-                VerticalSpacingWidget(height: 30),
-                //! edit name
-                TextFormField(
-                  controller: editNameController,
-                  keyboardType: TextInputType.name,
-                  cursorColor: GetColorThemeService(context).headingTextColor,
-                  style: AppTextStyle().mainTextStyle(
-                      fSize: 15,
-                      fWeight: FontWeight.w500,
-                      color: GetColorThemeService(context).textColor),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                  ),
-                ),
-                VerticalSpacingWidget(height: 10),
-                //!  edit phone number
-                TextFormField(
-                  controller: editPhoneNumberController,
-                  keyboardType: TextInputType.number,
-                  cursorColor: GetColorThemeService(context).headingTextColor,
-                  style: AppTextStyle().mainTextStyle(
-                      fSize: 15,
-                      fWeight: FontWeight.w500,
-                      color: GetColorThemeService(context).textColor),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
+        body: FadedSlideAnimation(
+          beginOffset: const Offset(0, 0.3),
+          endOffset: const Offset(0, 0),
+          slideCurve: Curves.linearToEaseOut,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: Column(
+                children: [
+                  VerticalSpacingWidget(height: 30),
+                  //! edit name
+                  TextFormField(
+                    controller: editNameController,
+                    keyboardType: TextInputType.name,
+                    cursorColor: GetColorThemeService(context).headingTextColor,
+                    style: AppTextStyle().mainTextStyle(
+                        fSize: 15,
+                        fWeight: FontWeight.w500,
+                        color: GetColorThemeService(context).textColor),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
                     ),
                   ),
-                ),
-                VerticalSpacingWidget(height: 10),
-                //! edit house name
-                TextFormField(
-                  controller: editHouseNameController,
-                  keyboardType: TextInputType.text,
-                  cursorColor: GetColorThemeService(context).headingTextColor,
-                  style: AppTextStyle().mainTextStyle(
-                      fSize: 15,
-                      fWeight: FontWeight.w500,
-                      color: GetColorThemeService(context).textColor),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                  ),
-                ),
-                VerticalSpacingWidget(height: 10),
-                //! edit street name
-                TextFormField(
-                  controller: editStreetNameConroller,
-                  keyboardType: TextInputType.text,
-                  cursorColor: GetColorThemeService(context).headingTextColor,
-                  style: AppTextStyle().mainTextStyle(
-                      fSize: 15,
-                      fWeight: FontWeight.w500,
-                      color: GetColorThemeService(context).textColor),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
+                  VerticalSpacingWidget(height: 10),
+                  //!  edit phone number
+                  TextFormField(
+                    controller: editPhoneNumberController,
+                    keyboardType: TextInputType.number,
+                    cursorColor: GetColorThemeService(context).headingTextColor,
+                    style: AppTextStyle().mainTextStyle(
+                        fSize: 15,
+                        fWeight: FontWeight.w500,
+                        color: GetColorThemeService(context).textColor),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
                     ),
                   ),
-                ),
-                VerticalSpacingWidget(height: 10),
-                //! edit pin code
-                TextFormField(
-                  controller: editPincodeController,
-                  keyboardType: TextInputType.number,
-                  cursorColor: GetColorThemeService(context).headingTextColor,
-                  style: AppTextStyle().mainTextStyle(
-                      fSize: 15,
-                      fWeight: FontWeight.w500,
-                      color: GetColorThemeService(context).textColor),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: GetColorThemeService(context).headingTextColor,
-                          width: 1),
+                  VerticalSpacingWidget(height: 10),
+                  //! edit house name
+                  TextFormField(
+                    controller: editHouseNameController,
+                    keyboardType: TextInputType.text,
+                    cursorColor: GetColorThemeService(context).headingTextColor,
+                    style: AppTextStyle().mainTextStyle(
+                        fSize: 15,
+                        fWeight: FontWeight.w500,
+                        color: GetColorThemeService(context).textColor),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
                     ),
                   ),
-                ),
-                VerticalSpacingWidget(height: 50),
-                //! reset
-                InkWell(
-                  onTap: () async {
-                    await updateUserDetails();
-                    ;
-                  },
-                  child: Container(
-                    height: 50.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: GetColorThemeService(context).headingTextColor,
-                      borderRadius: BorderRadius.circular(10),
+                  VerticalSpacingWidget(height: 10),
+                  //! edit street name
+                  TextFormField(
+                    controller: editStreetNameConroller,
+                    keyboardType: TextInputType.text,
+                    cursorColor: GetColorThemeService(context).headingTextColor,
+                    style: AppTextStyle().mainTextStyle(
+                        fSize: 15,
+                        fWeight: FontWeight.w500,
+                        color: GetColorThemeService(context).textColor),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
                     ),
-                    child: Center(
-                      child: isCircleLoading
-                          ? Center(
-                              child: CircularProgressIndicator(
-                                color: whiteColor,
+                  ),
+                  VerticalSpacingWidget(height: 10),
+                  //! edit pin code
+                  TextFormField(
+                    controller: editPincodeController,
+                    keyboardType: TextInputType.number,
+                    cursorColor: GetColorThemeService(context).headingTextColor,
+                    style: AppTextStyle().mainTextStyle(
+                        fSize: 15,
+                        fWeight: FontWeight.w500,
+                        color: GetColorThemeService(context).textColor),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color:
+                                GetColorThemeService(context).headingTextColor,
+                            width: 1),
+                      ),
+                    ),
+                  ),
+                  VerticalSpacingWidget(height: 50),
+                  //! reset
+                  InkWell(
+                    onTap: () async {
+                      await updateUserDetails();
+                      ;
+                    },
+                    child: Container(
+                      height: 50.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: GetColorThemeService(context).headingTextColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: isCircleLoading
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                  color: whiteColor,
+                                ),
+                              )
+                            : Text(
+                                "Reset",
+                                style: AppTextStyle.instance.mainTextStyle(
+                                    fSize: 18.sp,
+                                    fWeight: FontWeight.w500,
+                                    color: whiteColor),
                               ),
-                            )
-                          : Text(
-                              "Reset",
-                              style: AppTextStyle.instance.mainTextStyle(
-                                  fSize: 18.sp,
-                                  fWeight: FontWeight.w500,
-                                  color: whiteColor),
-                            ),
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

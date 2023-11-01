@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/consts/app_data_details.dart';
 import 'package:daily_shop/screens/authenticationScreens/login_screen/login_screen.dart';
@@ -18,64 +19,69 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 3,
-                child: PageView.builder(
-                  onPageChanged: (value) {
-                    setState(
-                      () {
-                        currentPageIndex = value;
-                      },
-                    );
-                  },
-                  itemCount: welcomeScreenDatas.length,
-                  itemBuilder: ((context, index) {
-                    return WelcomeScreenContentWidget(
-                      subText: welcomeScreenDatas[index]["subText"],
-                      imageUrl: welcomeScreenDatas[index]["imageUrl"],
-                    );
-                  }),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          welcomeScreenDatas.length,
-                          (newIndex) => buildDotIndicators(index: newIndex),
-                        ),
-                      ),
-                      const Spacer(flex: 2),
-                      CommonButtonWidget(
-                        height: 50,
-                        width: double.infinity,
-                        title: "Continue",
-                        onPressedFunction: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          );
+      body: FadedSlideAnimation(
+        beginOffset: const Offset(0, 0.3),
+        endOffset: const Offset(0, 0),
+        slideCurve: Curves.linearToEaseOut,
+        child: SafeArea(
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: PageView.builder(
+                    onPageChanged: (value) {
+                      setState(
+                        () {
+                          currentPageIndex = value;
                         },
-                      ),
-                      const Spacer(),
-                    ],
+                      );
+                    },
+                    itemCount: welcomeScreenDatas.length,
+                    itemBuilder: ((context, index) {
+                      return WelcomeScreenContentWidget(
+                        subText: welcomeScreenDatas[index]["subText"],
+                        imageUrl: welcomeScreenDatas[index]["imageUrl"],
+                      );
+                    }),
                   ),
                 ),
-              )
-            ],
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            welcomeScreenDatas.length,
+                            (newIndex) => buildDotIndicators(index: newIndex),
+                          ),
+                        ),
+                        const Spacer(flex: 2),
+                        CommonButtonWidget(
+                          height: 50,
+                          width: double.infinity,
+                          title: "Continue",
+                          onPressedFunction: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/commonwidgets/bottom_navigation.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/firebase_consts.dart';
@@ -66,10 +67,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image(
-            height: 70.h,
-            width: 70.w,
-            image: const AssetImage("assets/icons/logo.png"),
+          FadedScaleAnimation(
+            scaleDuration: const Duration(milliseconds: 400),
+            fadeDuration: const Duration(milliseconds: 400),
+            child: Image(
+              height: 70.h,
+              width: 70.w,
+              image: const AssetImage("assets/icons/logo.png"),
+            ),
           ),
           const VerticalSpacingWidget(height: 30),
           SpinKitFadingCircle(

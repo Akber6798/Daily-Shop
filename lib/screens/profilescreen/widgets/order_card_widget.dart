@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/controllers/product_controller.dart';
 import 'package:daily_shop/models/order_model.dart';
@@ -59,11 +60,15 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
         ),
-        child: FancyShimmerImage(
-          imageUrl: currentProduct.imageUrl,
-          height: 50.h,
-          width: 85.w,
-          boxFit: BoxFit.fill,
+        child: FadedScaleAnimation(
+          scaleDuration: const Duration(milliseconds: 400),
+          fadeDuration: const Duration(milliseconds: 400),
+          child: FancyShimmerImage(
+            imageUrl: currentProduct.imageUrl,
+            height: 50.h,
+            width: 85.w,
+            boxFit: BoxFit.fill,
+          ),
         ),
       ),
     );

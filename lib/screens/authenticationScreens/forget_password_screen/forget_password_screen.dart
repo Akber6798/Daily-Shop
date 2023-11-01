@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
@@ -63,65 +65,75 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       isLoading: isLoading,
       child: Scaffold(
         appBar: AppBar(),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.w),
-          child: Column(
-            children: [
-              const VerticalSpacingWidget(height: 25),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Forget Password",
-                    style: AppTextStyle.instance.mainTextStyle(
-                        fSize: 22,
-                        fWeight: FontWeight.w600,
-                        color: GetColorThemeService(context).headingTextColor),
-                  ),
-                  Image(
-                    height: 40.h,
-                    width: 40.w,
-                    image: const AssetImage("assets/icons/logo.png"),
-                  ),
-                ],
-              ),
-              const VerticalSpacingWidget(height: 50),
-              //! email
-              TextFormField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.done,
-                cursorColor: GetColorThemeService(context).headingTextColor,
-                style: AppTextStyle().mainTextStyle(
-                    fSize: 15,
-                    fWeight: FontWeight.w500,
-                    color: GetColorThemeService(context).textColor),
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                        color: GetColorThemeService(context).headingTextColor,
-                        width: 1),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                        color: GetColorThemeService(context).headingTextColor,
-                        width: 1),
+        body: FadedSlideAnimation(
+          beginOffset: const Offset(0, 0.3),
+          endOffset: const Offset(0, 0),
+          slideCurve: Curves.linearToEaseOut,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: Column(
+              children: [
+                const VerticalSpacingWidget(height: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Forget Password",
+                      style: AppTextStyle.instance.mainTextStyle(
+                          fSize: 22,
+                          fWeight: FontWeight.w600,
+                          color:
+                              GetColorThemeService(context).headingTextColor),
+                    ),
+                    FadedScaleAnimation(
+                      scaleDuration: const Duration(milliseconds: 400),
+                      fadeDuration: const Duration(milliseconds: 400),
+                      child: Image(
+                        height: 40.h,
+                        width: 40.w,
+                        image: const AssetImage("assets/icons/logo.png"),
+                      ),
+                    ),
+                  ],
+                ),
+                const VerticalSpacingWidget(height: 50),
+                //! email
+                TextFormField(
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.done,
+                  cursorColor: GetColorThemeService(context).headingTextColor,
+                  style: AppTextStyle().mainTextStyle(
+                      fSize: 15,
+                      fWeight: FontWeight.w500,
+                      color: GetColorThemeService(context).textColor),
+                  decoration: InputDecoration(
+                    hintText: "Email",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: GetColorThemeService(context).headingTextColor,
+                          width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: GetColorThemeService(context).headingTextColor,
+                          width: 1),
+                    ),
                   ),
                 ),
-              ),
-              const VerticalSpacingWidget(height: 30),
-              CommonButtonWidget(
-                height: 50,
-                width: double.infinity,
-                title: "Reset Now",
-                onPressedFunction: () {
-                  forgetPassword();
-                },
-              ),
-            ],
+                const VerticalSpacingWidget(height: 30),
+                CommonButtonWidget(
+                  height: 50,
+                  width: double.infinity,
+                  title: "Reset Now",
+                  onPressedFunction: () {
+                    forgetPassword();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

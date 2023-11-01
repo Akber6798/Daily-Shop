@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:daily_shop/commonwidgets/common_button_widget.dart';
 import 'package:daily_shop/commonwidgets/heart_icon_widget.dart';
 import 'package:daily_shop/commonwidgets/horizontal_spacing_widget.dart';
@@ -64,249 +65,254 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       },
       child: Scaffold(
         appBar: AppBar(),
-        body: Column(children: [
-          Flexible(
-            flex: 3,
-            child: Center(
-              //! image
-              child: FancyShimmerImage(
-                  imageUrl: currentProduct.imageUrl,
-                  height: 140.h,
-                  width: 210.w,
-                  boxFit: BoxFit.fill),
-            ),
-          ),
-          Flexible(
-            flex: 4,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
+        body: FadedSlideAnimation(
+          beginOffset: const Offset(0, 0.3),
+          endOffset: const Offset(0, 0),
+          slideCurve: Curves.linearToEaseOut,
+          child: Column(children: [
+            Flexible(
+              flex: 3,
+              child: Center(
+                //! image
+                child: FancyShimmerImage(
+                    imageUrl: currentProduct.imageUrl,
+                    height: 140.h,
+                    width: 210.w,
+                    boxFit: BoxFit.fill),
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: Column(
-                  children: [
-                    const VerticalSpacingWidget(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        //! title
-                        Text(
-                          currentProduct.title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTextStyle.instance.mainTextStyle(
-                              fSize: 18.sp,
-                              fWeight: FontWeight.w600,
-                              color: GetColorThemeService(context).textColor),
-                        ),
-                        //! favourite
-                        HeartIconWidget(
-                          productId: currentProduct.id,
-                          isInWishlist: isInWishlist,
-                        ),
-                      ],
-                    ),
-                    const VerticalSpacingWidget(height: 20),
-                    Row(
-                      children: [
-                        //! price
-                        Text(
-                          "₹${productPrice.toStringAsFixed(2)}",
-                          style: AppTextStyle.instance.mainTextStyle(
-                              fSize: 22.sp,
-                              fWeight: FontWeight.bold,
-                              color: GetColorThemeService(context)
-                                  .headingTextColor),
-                        ),
-                        Text(
-                          currentProduct.isPiece ? " /Piece" : " /Kg",
-                          style: AppTextStyle.instance.mainTextStyle(
-                              fSize: 18,
-                              fWeight: FontWeight.w600,
-                              color: GetColorThemeService(context).textColor),
-                        ),
-                        const HorizontalSpacingWidget(width: 5),
-                        Visibility(
-                          visible: currentProduct.isOnOffer ? true : false,
-                          child: Text(
-                            currentProduct.originalPrice.toStringAsFixed(2),
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.lineThrough),
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          "Free Delivery",
-                          style: AppTextStyle.instance.mainTextStyle(
-                              fSize: 18.sp,
-                              fWeight: FontWeight.w500,
-                              color: GetColorThemeService(context)
-                                  .headingTextColor),
-                        )
-                      ],
-                    ),
-                    const VerticalSpacingWidget(height: 30),
-                    SizedBox(
-                      width: 150.w,
-                      child: Row(
+            ),
+            Flexible(
+              flex: 4,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: Column(
+                    children: [
+                      const VerticalSpacingWidget(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Flexible(
-                            flex: 2,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              //! less
-                              child: KGControllerWidget(
-                                height: 40.h,
-                                width: 50.w,
-                                  color: redColor,
-                                  clickedFunction: () {
-                                    if (quantityController.text == "1") {
-                                      return;
-                                    } else {
-                                      setState(() {
-                                        quantityController.text = (int.parse(
-                                                    quantityController.text) -
-                                                1)
-                                            .toString();
-                                      });
-                                    }
-                                  },
-                                  icon: Icons.remove),
+                          //! title
+                          Text(
+                            currentProduct.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyle.instance.mainTextStyle(
+                                fSize: 18.sp,
+                                fWeight: FontWeight.w600,
+                                color: GetColorThemeService(context).textColor),
+                          ),
+                          //! favourite
+                          HeartIconWidget(
+                            productId: currentProduct.id,
+                            isInWishlist: isInWishlist,
+                          ),
+                        ],
+                      ),
+                      const VerticalSpacingWidget(height: 20),
+                      Row(
+                        children: [
+                          //! price
+                          Text(
+                            "₹${productPrice.toStringAsFixed(2)}",
+                            style: AppTextStyle.instance.mainTextStyle(
+                                fSize: 22.sp,
+                                fWeight: FontWeight.bold,
+                                color: GetColorThemeService(context)
+                                    .headingTextColor),
+                          ),
+                          Text(
+                            currentProduct.isPiece ? " /Piece" : " /Kg",
+                            style: AppTextStyle.instance.mainTextStyle(
+                                fSize: 18,
+                                fWeight: FontWeight.w600,
+                                color: GetColorThemeService(context).textColor),
+                          ),
+                          const HorizontalSpacingWidget(width: 5),
+                          Visibility(
+                            visible: currentProduct.isOnOffer ? true : false,
+                            child: Text(
+                              currentProduct.originalPrice.toStringAsFixed(2),
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.lineThrough),
                             ),
                           ),
-                          //! kg
-                          Flexible(
-                            flex: 2,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.h, horizontal: 4.w),
-                              child: TextField(
-                                controller: quantityController,
-                                onChanged: (onValue) {
-                                  setState(() {
-                                    if (onValue.isEmpty) {
-                                      quantityController.text = "1";
-                                    } else {
-                                      return;
-                                    }
-                                  });
-                                },
-                                cursorColor: GetColorThemeService(context)
-                                    .headingTextColor,
-                                keyboardType: TextInputType.number,
-                                style: AppTextStyle().mainTextStyle(
-                                    fSize: 20,
-                                    fWeight: FontWeight.w500,
-                                    color: GetColorThemeService(context)
-                                        .textColor),
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              //! add
-                              child: KGControllerWidget(
-                                height: 40.h,
-                                width: 50.w,
-                                  color: greenColor,
-                                  clickedFunction: () {
-                                    setState(() {
-                                      quantityController.text =
-                                          (int.parse(quantityController.text) +
-                                                  1)
-                                              .toString();
-                                    });
-                                  },
-                                  icon: Icons.add),
-                            ),
+                          const Spacer(),
+                          Text(
+                            "Free Delivery",
+                            style: AppTextStyle.instance.mainTextStyle(
+                                fSize: 18.sp,
+                                fWeight: FontWeight.w500,
+                                color: GetColorThemeService(context)
+                                    .headingTextColor),
                           )
                         ],
                       ),
-                    ),
-                    const Spacer(),
-                    Divider(
-                      color: GetColorThemeService(context).headingTextColor,
-                      thickness: 1,
-                    ),
-                    //! total
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      const VerticalSpacingWidget(height: 30),
+                      SizedBox(
+                        width: 150.w,
+                        child: Row(
                           children: [
-                            Text(
-                              "Total",
-                              style: AppTextStyle.instance.mainTextStyle(
-                                  fSize: 18.sp,
-                                  fWeight: FontWeight.bold,
-                                  color: redColor),
+                            Flexible(
+                              flex: 2,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                //! less
+                                child: KGControllerWidget(
+                                    height: 40.h,
+                                    width: 50.w,
+                                    color: redColor,
+                                    clickedFunction: () {
+                                      if (quantityController.text == "1") {
+                                        return;
+                                      } else {
+                                        setState(() {
+                                          quantityController.text = (int.parse(
+                                                      quantityController.text) -
+                                                  1)
+                                              .toString();
+                                        });
+                                      }
+                                    },
+                                    icon: Icons.remove),
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  "₹${totalPrice.toStringAsFixed(2)}",
-                                  style: AppTextStyle.instance.mainTextStyle(
-                                      fSize: 17.sp,
-                                      fWeight: FontWeight.bold,
-                                      color: GetColorThemeService(context)
-                                          .headingTextColor),
-                                ),
-                                Text(
-                                  " /${quantityController.text}Kg",
-                                  style: AppTextStyle.instance.mainTextStyle(
-                                      fSize: 14,
+                            //! kg
+                            Flexible(
+                              flex: 2,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8.h, horizontal: 4.w),
+                                child: TextField(
+                                  controller: quantityController,
+                                  onChanged: (onValue) {
+                                    setState(() {
+                                      if (onValue.isEmpty) {
+                                        quantityController.text = "1";
+                                      } else {
+                                        return;
+                                      }
+                                    });
+                                  },
+                                  cursorColor: GetColorThemeService(context)
+                                      .headingTextColor,
+                                  keyboardType: TextInputType.number,
+                                  style: AppTextStyle().mainTextStyle(
+                                      fSize: 20,
                                       fWeight: FontWeight.w500,
                                       color: GetColorThemeService(context)
                                           .textColor),
                                 ),
-                              ],
+                              ),
                             ),
-                            const VerticalSpacingWidget(height: 10)
+                            Flexible(
+                              flex: 2,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                //! add
+                                child: KGControllerWidget(
+                                    height: 40.h,
+                                    width: 50.w,
+                                    color: greenColor,
+                                    clickedFunction: () {
+                                      setState(() {
+                                        quantityController.text = (int.parse(
+                                                    quantityController.text) +
+                                                1)
+                                            .toString();
+                                      });
+                                    },
+                                    icon: Icons.add),
+                              ),
+                            )
                           ],
                         ),
-                        //! add to cart
-                        CommonButtonWidget(
-                          height: 40,
-                          width: 130,
-                          title: isInCart ? "In cart" : "Add to cart",
-                          onPressedFunction: isInCart
-                              ? null
-                              : () async {
-                                  if (user == null) {
-                                    GlobalServices.instance.errorDailogue(
-                                        context,
-                                        "No user found \nPlease login..");
-                                    return;
-                                  }
-                                  await cartController.addProductToCart(
-                                      productId: currentProduct.id,
-                                      quantity:
-                                          int.parse(quantityController.text),
-                                      context: context);
-                                  await cartController.fetchCartProducts(
-                                      context: context);
-                                },
-                        )
-                      ],
-                    )
-                  ],
+                      ),
+                      const Spacer(),
+                      Divider(
+                        color: GetColorThemeService(context).headingTextColor,
+                        thickness: 1,
+                      ),
+                      //! total
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Total",
+                                style: AppTextStyle.instance.mainTextStyle(
+                                    fSize: 18.sp,
+                                    fWeight: FontWeight.bold,
+                                    color: redColor),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "₹${totalPrice.toStringAsFixed(2)}",
+                                    style: AppTextStyle.instance.mainTextStyle(
+                                        fSize: 17.sp,
+                                        fWeight: FontWeight.bold,
+                                        color: GetColorThemeService(context)
+                                            .headingTextColor),
+                                  ),
+                                  Text(
+                                    " /${quantityController.text}Kg",
+                                    style: AppTextStyle.instance.mainTextStyle(
+                                        fSize: 14,
+                                        fWeight: FontWeight.w500,
+                                        color: GetColorThemeService(context)
+                                            .textColor),
+                                  ),
+                                ],
+                              ),
+                              const VerticalSpacingWidget(height: 10)
+                            ],
+                          ),
+                          //! add to cart
+                          CommonButtonWidget(
+                            height: 40,
+                            width: 130,
+                            title: isInCart ? "In cart" : "Add to cart",
+                            onPressedFunction: isInCart
+                                ? null
+                                : () async {
+                                    if (user == null) {
+                                      GlobalServices.instance.errorDailogue(
+                                          context,
+                                          "No user found \nPlease login..");
+                                      return;
+                                    }
+                                    await cartController.addProductToCart(
+                                        productId: currentProduct.id,
+                                        quantity:
+                                            int.parse(quantityController.text),
+                                        context: context);
+                                    await cartController.fetchCartProducts(
+                                        context: context);
+                                  },
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
 import 'package:daily_shop/screens/categoryScreen/inner_screens/category_product_screen.dart';
@@ -21,11 +22,15 @@ class CategoryCardWidget extends StatelessWidget {
       },
       child: Column(
         children: [
-          CircleAvatar(
-            radius: 45.sp,
-            backgroundColor: Colors.green[100],
-            backgroundImage: AssetImage(
-              image,
+          FadedScaleAnimation(
+            scaleDuration: const Duration(milliseconds: 400),
+            fadeDuration: const Duration(milliseconds: 400),
+            child: CircleAvatar(
+              radius: 45.sp,
+              backgroundColor: Colors.green[100],
+              backgroundImage: AssetImage(
+                image,
+              ),
             ),
           ),
           VerticalSpacingWidget(height: 10),

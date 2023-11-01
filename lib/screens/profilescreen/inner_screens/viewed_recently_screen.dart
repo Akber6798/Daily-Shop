@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:daily_shop/commonwidgets/empty_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
 import 'package:daily_shop/consts/app_text_style.dart';
@@ -52,18 +53,23 @@ class ViewedRecentlyScreen extends StatelessWidget {
           ? const EmptyWidget(
               emptyAnimation: "assets/animations/empty_viewed.json",
               emptyTitle: "No products on your\n Viewed")
-          : ListView.builder(
-              itemCount: viewedRecentlyProductList.length,
-              itemBuilder: ((context, index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                  child: ChangeNotifierProvider.value(
-                    value: viewedRecentlyProductList[index],
-                    child: const ViewedRecentlyCardWidget(),
-                  ),
-                );
-              }),
+          : FadedSlideAnimation(
+              beginOffset: const Offset(0, 0.3),
+              endOffset: const Offset(0, 0),
+              slideCurve: Curves.linearToEaseOut,
+              child: ListView.builder(
+                itemCount: viewedRecentlyProductList.length,
+                itemBuilder: ((context, index) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    child: ChangeNotifierProvider.value(
+                      value: viewedRecentlyProductList[index],
+                      child: const ViewedRecentlyCardWidget(),
+                    ),
+                  );
+                }),
+              ),
             ),
     );
   }

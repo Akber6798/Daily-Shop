@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
@@ -89,138 +90,144 @@ class _ProfileScreenState extends State<ProfileScreen> {
         appBar: AppBar(
           title: const Text("Profile"),
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                VerticalSpacingWidget(height: 10.h),
-                //! name
-                Text(
-                  userName == null ? "User" : userName.toString(),
-                  style: AppTextStyle.instance.mainTextStyle(
-                      fSize: 22,
-                      fWeight: FontWeight.w600,
-                      color: GetColorThemeService(context).headingTextColor),
-                ),
-                //! email
-                Text(
-                  userEmail == null ? "user@gmail.com" : userEmail.toString(),
-                  style: AppTextStyle.instance.mainTextStyle(
-                      fSize: 16,
-                      fWeight: FontWeight.w400,
-                      color: GetColorThemeService(context).textColor),
-                ),
-                VerticalSpacingWidget(height: 10.h),
-                Divider(
-                  thickness: 4,
-                  color: Theme.of(context).cardColor,
-                ),
-                VerticalSpacingWidget(height: 20.h),
-                ListTileWidget(
-                  title: "Edit profile",
-                  icon: IconlyLight.home,
-                  onPressed: () {
-                     GlobalServices.instance.navigateTo(
-                        context: context,
-                        routeName: EditProfileScreen.routeName);
-                  },
-                ),
-                ListTileWidget(
-                  title: "Orders",
-                  icon: IconlyLight.bag,
-                  onPressed: () {
-                    GlobalServices.instance.navigateTo(
-                        context: context, routeName: OrderScreen.routeName);
-                  },
-                ),
-                ListTileWidget(
-                  title: "Whislist",
-                  icon: IconlyLight.heart,
-                  onPressed: () {
-                    GlobalServices.instance.navigateTo(
-                        context: context, routeName: WishlistScreen.routeName);
-                  },
-                ),
-                ListTileWidget(
-                  title: "Viewed",
-                  icon: IconlyLight.show,
-                  onPressed: () {
-                    if (user == null) {
-                      GlobalServices.instance.errorDailogue(
-                          context, "No user found \nPlease login..");
-                      return;
-                    }
-                    GlobalServices.instance.navigateTo(
-                        context: context,
-                        routeName: ViewedRecentlyScreen.routeName);
-                  },
-                ),
-                ListTileWidget(
-                  title: "Forgot Password",
-                  icon: IconlyLight.unlock,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ForgetPasswordScreen(),
+        body: FadedSlideAnimation(
+          beginOffset: const Offset(0, 0.3),
+          endOffset: const Offset(0, 0),
+          slideCurve: Curves.linearToEaseOut,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  VerticalSpacingWidget(height: 10.h),
+                  //! name
+                  Text(
+                    userName == null ? "User" : userName.toString(),
+                    style: AppTextStyle.instance.mainTextStyle(
+                        fSize: 22,
+                        fWeight: FontWeight.w600,
+                        color: GetColorThemeService(context).headingTextColor),
+                  ),
+                  //! email
+                  Text(
+                    userEmail == null ? "user@gmail.com" : userEmail.toString(),
+                    style: AppTextStyle.instance.mainTextStyle(
+                        fSize: 16,
+                        fWeight: FontWeight.w400,
+                        color: GetColorThemeService(context).textColor),
+                  ),
+                  VerticalSpacingWidget(height: 10.h),
+                  Divider(
+                    thickness: 4,
+                    color: Theme.of(context).cardColor,
+                  ),
+                  VerticalSpacingWidget(height: 20.h),
+                  ListTileWidget(
+                    title: "Edit profile",
+                    icon: IconlyLight.home,
+                    onPressed: () {
+                      GlobalServices.instance.navigateTo(
+                          context: context,
+                          routeName: EditProfileScreen.routeName);
+                    },
+                  ),
+                  ListTileWidget(
+                    title: "Orders",
+                    icon: IconlyLight.bag,
+                    onPressed: () {
+                      GlobalServices.instance.navigateTo(
+                          context: context, routeName: OrderScreen.routeName);
+                    },
+                  ),
+                  ListTileWidget(
+                    title: "Whislist",
+                    icon: IconlyLight.heart,
+                    onPressed: () {
+                      GlobalServices.instance.navigateTo(
+                          context: context,
+                          routeName: WishlistScreen.routeName);
+                    },
+                  ),
+                  ListTileWidget(
+                    title: "Viewed",
+                    icon: IconlyLight.show,
+                    onPressed: () {
+                      if (user == null) {
+                        GlobalServices.instance.errorDailogue(
+                            context, "No user found \nPlease login..");
+                        return;
+                      }
+                      GlobalServices.instance.navigateTo(
+                          context: context,
+                          routeName: ViewedRecentlyScreen.routeName);
+                    },
+                  ),
+                  ListTileWidget(
+                    title: "Forgot Password",
+                    icon: IconlyLight.unlock,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgetPasswordScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  SwitchListTile(
+                      title: Text(
+                        "Dark Mode",
+                        style: AppTextStyle.instance.mainTextStyle(
+                            fSize: 19,
+                            fWeight: FontWeight.w400,
+                            color: GetColorThemeService(context).textColor),
                       ),
-                    );
-                  },
-                ),
-                SwitchListTile(
-                    title: Text(
-                      "Dark Mode",
-                      style: AppTextStyle.instance.mainTextStyle(
-                          fSize: 19,
-                          fWeight: FontWeight.w400,
-                          color: GetColorThemeService(context).textColor),
-                    ),
-                    secondary: Icon(
-                      themeState.darkTheme
-                          ? Icons.dark_mode_outlined
-                          : Icons.light_mode_outlined,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
-                    value: themeState.darkTheme,
-                    onChanged: (value) {
-                      themeState.setDarkTheme = value;
-                    }),
-                ListTileWidget(
-                  title: user == null ? "Login" : "Logout",
-                  icon: IconlyLight.logout,
-                  onPressed: () {
-                    user == null
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          )
-                        : GlobalServices.instance.closingDailogue(
-                            context, "Sign Out", "Do you wanna Sign Out?",
-                            () async {
-                            await authenticationInstance.signOut();
-                            Navigator.push(
+                      secondary: Icon(
+                        themeState.darkTheme
+                            ? Icons.dark_mode_outlined
+                            : Icons.light_mode_outlined,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
+                      value: themeState.darkTheme,
+                      onChanged: (value) {
+                        themeState.setDarkTheme = value;
+                      }),
+                  ListTileWidget(
+                    title: user == null ? "Login" : "Logout",
+                    icon: IconlyLight.logout,
+                    onPressed: () {
+                      user == null
+                          ? Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const WelcomeScreen(),
+                                builder: (context) => const LoginScreen(),
                               ),
-                            );
-                          });
-                  },
-                ),
-                const VerticalSpacingWidget(height: 30),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Version : 1.0",
-                    style: AppTextStyle.instance.mainTextStyle(
-                        fSize: 18, fWeight: FontWeight.w500, color: redColor),
+                            )
+                          : GlobalServices.instance.closingDailogue(
+                              context, "Sign Out", "Do you wanna Sign Out?",
+                              () async {
+                              await authenticationInstance.signOut();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WelcomeScreen(),
+                                ),
+                              );
+                            });
+                    },
                   ),
-                )
-              ],
+                  const VerticalSpacingWidget(height: 30),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Version : 1.0",
+                      style: AppTextStyle.instance.mainTextStyle(
+                          fSize: 18, fWeight: FontWeight.w500, color: redColor),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

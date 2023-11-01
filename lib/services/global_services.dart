@@ -139,8 +139,8 @@ class GlobalServices {
           content: Text(
             title,
             style: AppTextStyle.instance.mainTextStyle(
-                fSize: 21,
-                fWeight: FontWeight.bold,
+                fSize: 20,
+                fWeight: FontWeight.w600,
                 color: GetColorThemeService(context).headingTextColor),
           ),
           actions: [
@@ -149,7 +149,7 @@ class GlobalServices {
                 "No",
                 style: AppTextStyle.instance.mainTextStyle(
                     fSize: 16,
-                    fWeight: FontWeight.w800,
+                    fWeight: FontWeight.w600,
                     color: GetColorThemeService(context).headingTextColor),
               ),
               onPressed: () {
@@ -161,7 +161,7 @@ class GlobalServices {
               child: Text(
                 "Yes",
                 style: AppTextStyle.instance.mainTextStyle(
-                    fSize: 18, fWeight: FontWeight.bold, color: redColor),
+                    fSize: 18, fWeight: FontWeight.w700, color: redColor),
               ),
             )
           ],

@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:daily_shop/commonwidgets/empty_widget.dart';
 import 'package:daily_shop/commonwidgets/vertical_spacing_widget.dart';
 import 'package:daily_shop/consts/app_colors.dart';
@@ -41,8 +42,8 @@ class WishlistScreen extends StatelessWidget {
                 context,
                 "Delete wishlist",
                 "Do you want to delete all?",
-                ()async {
-                await  wishlistController.clearAllWishlistItems();
+                () async {
+                  await wishlistController.clearAllWishlistItems();
                 },
               );
             },
@@ -54,30 +55,35 @@ class WishlistScreen extends StatelessWidget {
           ? const EmptyWidget(
               emptyAnimation: "assets/animations/empty_wishlist.json",
               emptyTitle: "No products on your\n Wishlist")
-          : SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: Column(
-                  children: [
-                    const VerticalSpacingWidget(height: 15),
-                    GridView.builder(
-                        itemCount: wishlistProductList.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 7,
-                                mainAxisSpacing: 7,
-                                childAspectRatio: .95),
-                        itemBuilder: (context, index) {
-                          return ChangeNotifierProvider.value(
-                            value: wishlistProductList[index],
-                            child: const WishlistCardWidget(),
-                          );
-                        }),
-                    const VerticalSpacingWidget(height: 8),
-                  ],
+          : FadedSlideAnimation(
+              beginOffset: const Offset(0, 0.3),
+              endOffset: const Offset(0, 0),
+              slideCurve: Curves.linearToEaseOut,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: Column(
+                    children: [
+                      const VerticalSpacingWidget(height: 15),
+                      GridView.builder(
+                          itemCount: wishlistProductList.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 7,
+                                  mainAxisSpacing: 7,
+                                  childAspectRatio: .95),
+                          itemBuilder: (context, index) {
+                            return ChangeNotifierProvider.value(
+                              value: wishlistProductList[index],
+                              child: const WishlistCardWidget(),
+                            );
+                          }),
+                      const VerticalSpacingWidget(height: 8),
+                    ],
+                  ),
                 ),
               ),
             ),
