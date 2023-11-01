@@ -78,7 +78,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     imageUrl: currentProduct.imageUrl,
                     height: 140.h,
                     width: 210.w,
-                    boxFit: BoxFit.fill),
+                    boxFit: BoxFit.contain),
               ),
             ),
             Flexible(

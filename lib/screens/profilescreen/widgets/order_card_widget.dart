@@ -67,7 +67,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
             imageUrl: currentProduct.imageUrl,
             height: 50.h,
             width: 85.w,
-            boxFit: BoxFit.fill,
+            boxFit: BoxFit.contain,
           ),
         ),
       ),

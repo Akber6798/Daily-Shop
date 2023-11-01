@@ -75,7 +75,7 @@ class OfferProductCardWidget extends StatelessWidget {
                       imageUrl: productModel.imageUrl,
                       height: 70.h,
                       width: 100.w,
-                      boxFit: BoxFit.fill,
+                      boxFit: BoxFit.contain,
                     ),
                   ),
                 ),

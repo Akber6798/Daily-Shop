@@ -62,7 +62,7 @@ class WishlistCardWidget extends StatelessWidget {
                       imageUrl: currentProduct.imageUrl,
                       height: 70.h,
                       width: 100.w,
-                      boxFit: BoxFit.fill,
+                      boxFit: BoxFit.contain,
                     ),
                   ),
                   Column(

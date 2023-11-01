@@ -52,7 +52,7 @@ class ViewedRecentlyCardWidget extends StatelessWidget {
                   imageUrl: currentProduct.imageUrl,
                   height: 60.h,
                   width: 90.w,
-                  boxFit: BoxFit.fill,
+                  boxFit: BoxFit.contain,
                 ),
               ),
             ),
